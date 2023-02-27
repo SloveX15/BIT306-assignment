@@ -1,0 +1,59 @@
+
+<header id="nav-wrapper">
+  <nav id="nav">
+    <div class="nav left">
+      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Logo Here</a></h1></span>
+      <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
+    </div>
+    <div class="nav right">
+      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
+      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">About</span></span></a>
+      <a href="#work" class="nav-link"><span class="nav-link-span"><span class="u-nav">Work</span></span></a>
+      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Contact</span></span></a>
+    </div>
+  </nav>
+</header>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <form>
+    <label>
+      Department:
+      <select [(ngModel)]="selectedDepartment">
+        <option *ngFor="let department of departments" [value]="department.id">{{ department.name }}</option>
+
+
+      </select>
+    </label>
+    <br>
+  
+    <label>
+      Employee Name:
+      <input type="text" [(ngModel)]="employeeName" name="employeeName">
+    </label>
+    <br>
+  
+    <label>
+      Employee ID:
+      <input type="text" [(ngModel)]="employeeID" name="employeeID">
+    </label>
+    <br>
+  
+    <label>
+      Position:
+      <input type="text" [(ngModel)]="position" name="position">
+    </label>
+    <br>
+  
+    <label>
+      Email:
+      <input type="email" [(ngModel)]="email" name="email">
+    </label>
+    <br>
+  
+    <button (click)="registerEmployee()">Register Employee</button>
+  </form>
+  
+</div>
