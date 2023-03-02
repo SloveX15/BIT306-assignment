@@ -2,14 +2,14 @@
 <header id="nav-wrapper">
   <nav id="nav">
     <div class="nav left">
-      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Logo Here</a></h1></span>
+      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
-      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">About</span></span></a>
-      <a href="#work" class="nav-link"><span class="nav-link-span"><span class="u-nav">Work</span></span></a>
-      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Contact</span></span></a>
+      <a href="" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
+      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
+      
+      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -21,7 +21,7 @@
   <form>
     <label>
       Department:
-      <select [(ngModel)]="selectedDepartment">
+      <select [(ngModel)]="selectedDepartment" required>
         <option *ngFor="let department of departments" [value]="department.id">{{ department.name }}</option>
 
 
@@ -31,25 +31,34 @@
   
     <label>
       Employee Name:
-      <input type="text" [(ngModel)]="employeeName" name="employeeName">
+      <input type="text" [(ngModel)]="employeeName" name="employeeName" required>
     </label>
     <br>
   
     <label>
       Employee ID:
-      <input type="text" [(ngModel)]="employeeID" name="employeeID">
+      <input type="text" [(ngModel)]="employeeID" name="employeeID" required>
     </label>
     <br>
   
+
     <label>
       Position:
-      <input type="text" [(ngModel)]="position" name="position">
+      <select type="position" id="position" name="position" [(ngModel)]="position" ng-change="TypeChange(position,$index)" required>
+        <option value="">-- Select Position --</option>
+        <option value="1">Supervisor</option>
+        <option value="2">Employee</option>
+      </select>
     </label>
     <br>
-  
     <label>
       Email:
       <input type="email" [(ngModel)]="email" name="email">
+    </label>
+    <br>
+    <label>
+      Supervisor ID:
+      <input id="supervisorID" type="text" [(ngModel)]="supervisorID" name="supervisorID" [disabled]="position === '1'">
     </label>
     <br>
   

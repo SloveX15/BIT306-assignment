@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { SubmitRequestComponent } from './submit-request/submit-request.component';
 import { ReviewRequestComponent } from './review-request/review-request.component';
 
-
+const routes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'register-employee', component: RegisterEmployeeComponent },
+  { path: 'submit-request', component: SubmitRequestComponent },
+  { path: 'review-request', component: ReviewRequestComponent },
+]
 
 @NgModule({
   declarations: [
@@ -21,10 +26,7 @@ import { ReviewRequestComponent } from './review-request/review-request.componen
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: LoginComponent },
-      { path: 'register-employee', component: RegisterEmployeeComponent }
-    ]),
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

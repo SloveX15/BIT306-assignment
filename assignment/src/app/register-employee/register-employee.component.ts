@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-employee',
@@ -12,15 +13,20 @@ export class RegisterEmployeeComponent {
     { id: '2', name: 'Department 2' },
     { id: '3', name: 'Department 3' }
   ];
+
+    
+
+
   employeeName: string='';
   employeeID: string='';
   position: string='';
   email: string='';
+  supervisorID: string='';
   employeeStatus = 'new';
-
+  constructor(private router: Router) { }
   registerEmployee() {
     const selectedDepartment = this.departments.find(department => department.id === this.selectedDepartment);
-const departmentName = selectedDepartment ? selectedDepartment.name : undefined;
+    const departmentName = selectedDepartment ? selectedDepartment.name : undefined;
 
 const employee = {
   department: departmentName,
@@ -30,6 +36,7 @@ const employee = {
   email: this.email,
   status: this.employeeStatus
 };
+
 
 
     // TODO: Send the employee data to the server or perform any other necessary actions
