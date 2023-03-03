@@ -1,0 +1,17 @@
+body {
+    background-color: #fff;
+  }
+  
+  nav {
+    background-color: #00A3FF;
+  }
+  
+  :host {
+    display: block;
+    background-color: #00A3FF;
+  }
+  
+  :host body {
+    background-color: #fff;
+  }
+  
