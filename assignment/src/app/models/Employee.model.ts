@@ -1,4 +1,4 @@
-export interface Request {
+export interface Employee {
     employeeId: number;
     password: string;
     name: string;

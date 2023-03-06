@@ -8,6 +8,9 @@ import { RegisterEmployeeComponent } from './register-employee/register-employee
 import { SubmitRequestComponent } from './submit-request/submit-request.component';
 import { ReviewRequestComponent } from './review-request/review-request.component';
 import { AdminHomepageComponent } from './admin-homepage/admin-homepage.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,6 +34,8 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
