@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Request } from '../Request.model';
+import { Request } from '../models/Request.model';
 import { Router } from '@angular/router';
 
 @Component({

@@ -5,4 +5,5 @@ export interface Request {
  description: string;
  reason: string;
  status: string;
+ //comment: string;
 }

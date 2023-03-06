@@ -17,7 +17,7 @@
 <br>
 <br>
 <br>
-<form (submit)="login()">
+<form (submit)="login(loginForm)" #loginForm="ngForm">
   <div>
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" [(ngModel)]="username">
