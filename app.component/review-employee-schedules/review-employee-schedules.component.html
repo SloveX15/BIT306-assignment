@@ -1,0 +1,32 @@
+
+<br>
+<br>
+<br>
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="selectedDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <button mat-raised-button color="primary" (click)="onDateSelected()">OK</button>
+</mat-form-field>
+<mat-accordion multi="true" *ngIf="filteredSchedules.length > 0">
+  <br>
+  <mat-expansion-panel *ngFor="let ds of filteredSchedules">
+    <mat-expansion-panel-header>
+      {{ ds.employeeID }}
+    </mat-expansion-panel-header>
+    <p>Work Location :{{ ds.workLocation }}</p>
+    <p>Working Hours :{{ ds.workHours }}</p>
+    <p>Date :{{ ds.date }}</p>
+    <p>supervisorComments :{{ds.comment}}</p>
+    <div *ngIf="isEditing && ds.isEditMode">
+      <mat-form-field>
+        <textarea matInput name="supervisorComments" placeholder="Enter supervisor comments" [(ngModel)]="ds.comment"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="onSaveSupervisorComments(ds)">Save</button>
+    </div>
+    <button mat-raised-button color="primary" *ngIf="!isEditing && !ds.isEditMode" (click)="ds.isEditMode = true; isEditing = true;">Edit</button>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<p class="info-text mat-body-1" *ngIf="filteredSchedules.length == 0 && dailySchedules.length != 0">No Schedule on this day </p>
+<p class="info-text mat-body-1" *ngIf="dailySchedules.length == 0">No Schedule added yet </p>

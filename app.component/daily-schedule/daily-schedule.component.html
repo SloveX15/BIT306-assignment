@@ -1,0 +1,50 @@
+<br>
+<br>
+<br>
+<h1>Update Daily Schedule</h1>
+<!-- <mat-form-field>
+  <textarea matInput rows="6" [(ngModel)]="enteredValue"></textarea>
+  <hr>
+  <button (click)="onAddPost()">Save Post</button>
+
+  <p>{{newPost}}</p>
+</mat-form-field> -->
+
+
+<mat-card>
+  <form (submit)="onAddSchedule(postForm)" #postForm="ngForm">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Select a date" ngModel #date="ngModel" name="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="date.invalid">Invalid date</mat-error>
+    </mat-form-field>
+
+  <mat-form-field>
+    <input matInput name="workLocation" type="text" ngModel required minlength="3" #workLocation="ngModel" placeholder="Enter your work location">
+    <mat-error *ngIf="workLocation.invalid"> Please enter a post title</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Select work hours" ngModel #workHours="ngModel" name="workHours">
+      <mat-option value="8am - 4pm">8am - 4pm</mat-option>
+      <mat-option value="9am - 5pm">9am - 5pm</mat-option>
+      <mat-option value="10am - 6pm">10am - 6pm</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput rows="4" name="workReport" ngModel required #workReport="ngModel" placeholder="Enter your work report"></textarea>
+    <mat-error *ngIf="workReport.invalid"> Please enter a post content</mat-error>
+  </mat-form-field>
+  <hr>
+  <button
+    mat-raised-button
+    color = "accent"
+    type="submit">Update
+  </button> -->
+  </form>
+  <!-- <p>{{newPost}}</p> -->
+
+
+</mat-card>
