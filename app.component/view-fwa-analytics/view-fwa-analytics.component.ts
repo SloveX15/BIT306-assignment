@@ -3,10 +3,7 @@ import { FWARequest } from '../FWARequest.model';
 import { FWARequestServices } from '../FWARequest.service';
 import { DailyScheduleServices } from '../daily_schedule.service';
 import { DailySchedule } from '../daily_schedule.model';
-import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup,FormControl } from '@angular/forms';
 import { departmentServices } from '../department.service';
-import { MatSelect } from '@angular/material/select';
 import { Department } from '../department.model';
 import { EmployeeServices } from '../employee.service';
 import { Employee } from '../employee.model';
@@ -27,8 +24,9 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   employeeData:Employee[]=[];
   filteredEmployees:Employee[]=[];
   departmentData: Department[] = [
-    {deptID: 'dept1',deptName: 'Sales',flexiHours: 5,workFromHome: 7,hybrid: 2,
-  }];
+  //   {deptID: 'dept1',deptName: 'Sales',flexiHours: 5,workFromHome: 7,hybrid: 2,
+  // }
+  ];
   fwaData: FWARequest[] = [
     // { requestID: 'req1', requestDate: new Date('2023-03-01'), workType: 'Flexi Hours', description: 'Working 8 hours', reason: 'Doctor appointment', status: 'Approved', comment: '', employeeID: 'emp1' },
     // { requestID: 'req2', requestDate: new Date('2023-03-02'), workType: 'Work from Home', description: 'Working on project A', reason: 'Childcare', status: 'Pending', comment: '', employeeID: 'emp2' },
@@ -45,21 +43,21 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     //   { date: new Date('2023-03-04'), employeeID: 'emp4', workLocation: 'Office', workHours: '8:30 AM - 5:30 PM', workReport: 'Completed training program', comment: 'Well done!', isEditMode: false }
   ];
 
-  viewFWARequests() {
-    // Call API to retrieve FWA request data based on selectedDepartment
-    // Assume the API returns an array of FWARequest objects
-    this.scheduleData = []; // Clear schedule data
-    const fwaRequests = this.fwaData.filter(request => request.employeeID === this.selectedDepartment.deptID);
-    this.scheduleData = fwaRequests.map(request => ({
-      date: request.requestDate,
-      employeeID: request.employeeID,
-      workLocation: request.workType,
-      workHours: '',
-      workReport: request.description,
-      comment: request.comment,
-      isEditMode: false,
-    }));
-  }
+  // viewFWARequests() {
+  //   // Call API to retrieve FWA request data based on selectedDepartment
+  //   // Assume the API returns an array of FWARequest objects
+  //   this.scheduleData = []; // Clear schedule data
+  //   const fwaRequests = this.fwaData.filter(request => request.employeeID === this.selectedDepartment.deptID);
+  //   this.scheduleData = fwaRequests.map(request => ({
+  //     date: request.requestDate,
+  //     employeeID: request.employeeID,
+  //     workLocation: request.workType,
+  //     workHours: '',
+  //     workReport: request.description,
+  //     comment: request.comment,
+  //     isEditMode: false,
+  //   }));
+  // }
 
   viewSchedule() {
     this.filteredScheduleData = this.scheduleData.filter(schedule => {
@@ -90,6 +88,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     this.employeeData = this.employeeService.getEmployees();
     this.fwaData = this.fwaRequestService.getFWARequests();
     this.scheduleData = this.dailyScheduleService.getDShedule();
+    this.departmentData = this.departmentService.getDepartments();
   }
 
   viewDetails(): void {
@@ -113,9 +112,9 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     }
 
     // Create an array of objects with date and count properties
-    let dateCountsArray = Object.keys(this.dateCounts).map(date => {
-      return { date: new Date(date), count: this.dateCounts[date] };
-    });
+    // let dateCountsArray = Object.keys(this.dateCounts).map(date => {
+    //   return { date: new Date(date), count: this.dateCounts[date] };
+    // });
 
     Object.keys(this.dateCounts).forEach(key => {
       this.dateKeys.push(key);

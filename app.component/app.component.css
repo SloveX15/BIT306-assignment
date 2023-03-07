@@ -70,7 +70,7 @@ h1.logo a {
 
 a:not(.btn-nav) {
   text-decoration: none;
-  color: #f857a8;
+  color: #fff;
 }
 
 a:not(.btn-nav):hover {
@@ -124,6 +124,7 @@ a:not(.btn-nav):hover {
   .nav-link-span {
     transform: skew(-15deg);
     display: inline-block;
+    font-weight: bold;
   }
 
   .nav-link {

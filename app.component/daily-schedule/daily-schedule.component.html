@@ -1,7 +1,6 @@
 <br>
 <br>
 <br>
-<h1>Update Daily Schedule</h1>
 <!-- <mat-form-field>
   <textarea matInput rows="6" [(ngModel)]="enteredValue"></textarea>
   <hr>
@@ -12,6 +11,7 @@
 
 
 <mat-card>
+  <h1 style="font-size: 50px;">Update Daily Schedule</h1>
   <form (submit)="onAddSchedule(postForm)" #postForm="ngForm">
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Select a date" ngModel #date="ngModel" name="date">
@@ -38,13 +38,14 @@
     <mat-error *ngIf="workReport.invalid"> Please enter a post content</mat-error>
   </mat-form-field>
   <hr>
-  <button
-    mat-raised-button
-    color = "accent"
-    type="submit">Update
-  </button> -->
+  <button mat-raised-button class="button-blue" type="submit">Update</button>
+  <br>
   </form>
   <!-- <p>{{newPost}}</p> -->
 
 
 </mat-card>
+
+<footer style="text-align: center;">
+  &#169; B2000280 & B2001114
+</footer>

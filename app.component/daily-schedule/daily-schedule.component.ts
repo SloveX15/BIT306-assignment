@@ -20,6 +20,7 @@ export class DailyScheduleComponent {
       return;
     }
     this.dailyScheduleService.addDSchedule('', form.value.workHours,form.value.workLocation,form.value.workReport,form.value.date,'',false);
-
+    alert("Schedule update successfully!");
+    form.reset();
   }
 }
