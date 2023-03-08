@@ -1,3 +1,4 @@
+import { Department } from "./department.model";
 export interface Employee{
   employeeID:string;
   password:string;
@@ -5,5 +6,5 @@ export interface Employee{
   position:string;
   email:string;
   FWAStatus:string;
-  deptID:string;
+  department:Department;
 }

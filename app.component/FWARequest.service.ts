@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import { FWARequest } from './FWARequest.model';
+import { Request } from './FWARequest.model';
 
 @Injectable({providedIn: 'root'})
 
 export class FWARequestServices{
-  private fwaRequests: FWARequest[]=[
+  private fwaRequests: Request[]=[
     { requestID: 'req1', requestDate: new Date('2023-03-01'), workType: 'Flexi Hours', description: 'Working 8 hours', reason: 'Doctor appointment', status: 'Approved', comment: '', employeeID: 'E001' },
     { requestID: 'req2', requestDate: new Date('2023-03-02'), workType: 'Work from Home', description: 'Working on project A', reason: 'Childcare', status: 'Pending', comment: '', employeeID: 'E002' },
     { requestID: 'req3', requestDate: new Date('2023-03-03'), workType: 'Hybrid', description: 'Working on project B', reason: 'Travel', status: 'Declined', comment: '', employeeID: 'E003' },

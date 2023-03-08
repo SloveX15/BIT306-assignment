@@ -183,3 +183,7 @@ a:not(.btn-nav):hover {
     padding-right: 5em;
   }
 }
+
+.button-blue{
+  background-color: #00A3FF;
+}

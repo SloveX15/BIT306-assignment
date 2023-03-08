@@ -9,25 +9,24 @@
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
-      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">About</span></span></a>
-      <a routerLink="/update" class="nav-link">
+      <a href="#home" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
+      <a routerLink="/" class="nav-link active">
         <span class="nav-link-span">
-          <span class="u-nav">Update</span>
-        </span>
-      </a>
-      <a routerLink="/fwaAnalytics" class="nav-link">
-        <span class="nav-link-span">
-          <span class="u-nav">View FWA Analytics</span>
+          <span class="u-nav">Review FWA Request</span>
         </span>
       </a>
       <a routerLink="/review" class="nav-link">
         <span class="nav-link-span">
-          <span class="u-nav">Review</span>
+          <span class="u-nav">Review Schedule</span>
+        </span>
+      </a>
+      <a routerLink="/fwaAnalytics" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">FWA Analytics</span>
         </span>
       </a>
 
-      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Contact</span></span></a>
+      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -37,7 +36,7 @@
     <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="selectedDate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <button mat-raised-button class="button-blue" (click)="onDateSelected()">OK</button>
+    <button mat-raised-button color="primary" (click)="onDateSelected()">OK</button>
   </mat-form-field>
   <mat-accordion multi="true" *ngIf="filteredSchedules.length > 0">
     <br>
@@ -53,7 +52,7 @@
         <mat-form-field>
           <textarea matInput name="supervisorComments" placeholder="Enter supervisor comments" [(ngModel)]="ds.comment"></textarea>
         </mat-form-field>
-        <button mat-raised-button color="#00A3FF" (click)="onSaveSupervisorComments(ds)">Save</button>
+        <button mat-raised-button color="primary" (click)="onSaveSupervisorComments(ds)">Save</button>
       </div>
       <button mat-raised-button color="primary" *ngIf="!isEditing && !ds.isEditMode" (click)="ds.isEditMode = true; isEditing = true;">Edit</button>
     </mat-expansion-panel>
@@ -62,6 +61,8 @@
   <p class="info-text mat-body-1" *ngIf="filteredSchedules.length == 0 && dailySchedules.length != 0">No Schedule on this day </p>
   <p class="info-text mat-body-1" *ngIf="dailySchedules.length == 0">No Schedule added yet </p>
 </mat-card>
+<br>
+<br>
 
 <footer style="text-align: center;">
   &#169; B2000280 & B2001114

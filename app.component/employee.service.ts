@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Department } from './department.model';
 import { Employee } from './employee.model';
 
 @Injectable({providedIn: 'root'})
@@ -12,7 +13,7 @@ export class EmployeeServices{
       position: 'Manager',
       email: 'johndoe@example.com',
       FWAStatus: 'Full-time',
-      deptID: 'D001'
+      department: {deptID: 'D001',deptName: 'Sales',flexiHours: 5,workFromHome: 7,hybrid: 2}
     },
     {
       employeeID: 'E002',
@@ -21,7 +22,7 @@ export class EmployeeServices{
       position: 'Developer',
       email: 'janesmith@example.com',
       FWAStatus: 'Part-time',
-      deptID: 'D002'
+      department: {deptID: 'D002',deptName: 'IT',flexiHours: 5,workFromHome: 7,hybrid: 2}
     },
     {
       employeeID: 'E003',
@@ -30,7 +31,7 @@ export class EmployeeServices{
       position: 'Designer',
       email: 'bobjohnson@example.com',
       FWAStatus: 'Full-time',
-      deptID: 'D003'
+      department: {deptID: 'D003',deptName: 'Marketing',flexiHours: 5,workFromHome: 7,hybrid: 2}
     },
     {
       employeeID: 'E004',
@@ -39,7 +40,7 @@ export class EmployeeServices{
       position: 'Marketing Manager',
       email: 'saralee@example.com',
       FWAStatus: 'Full-time',
-      deptID: 'D004'
+      department: {deptID: 'D004',deptName: 'Product',flexiHours: 5,workFromHome: 7,hybrid: 2}
     },
     {
       employeeID: 'E005',
@@ -48,12 +49,23 @@ export class EmployeeServices{
       position: 'Sales Representative',
       email: 'mikebrown@example.com',
       FWAStatus: 'Part-time',
-      deptID: 'D005'
+      department: {deptID: 'D005',deptName: 'Manage',flexiHours: 5,workFromHome: 7,hybrid: 2}
     }
   ];
+  private employee!:Employee;
 
   getEmployees(){
     return this.employees;
   }
 
+  getEmployee(empID:string){
+    return this.employees.find(e => e.employeeID === empID)!;
+  }
+
+  storeCurrentEmployee(empID:string){
+    this.employee = this.employees.find(e => e.employeeID === empID)!;
+  }
+  currentEmployee(){
+    return this.employee;
+  }
 }

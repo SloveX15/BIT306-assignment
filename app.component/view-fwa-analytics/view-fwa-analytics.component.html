@@ -2,32 +2,31 @@
 <br>
 <br>
 <br>
-<header id="nav-wrapper">
+<header id="nav-wrapper" >
   <nav id="nav">
     <div class="nav left">
       <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
-      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">About</span></span></a>
-      <a routerLink="/update" class="nav-link">
+      <a href="#home" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
+      <a routerLink="/fwaAnalytics" class="nav-link active">
         <span class="nav-link-span">
-          <span class="u-nav">Update</span>
+          <span class="u-nav">FWA Analytics</span>
         </span>
       </a>
-      <a routerLink="/fwaAnalytics" class="nav-link">
+      <a routerLink="/" class="nav-link">
         <span class="nav-link-span">
-          <span class="u-nav">View FWA Analytics</span>
+          <span class="u-nav">Review FWA Request</span>
         </span>
       </a>
       <a routerLink="/review" class="nav-link">
         <span class="nav-link-span">
-          <span class="u-nav">Review</span>
+          <span class="u-nav">Review Schedule</span>
         </span>
       </a>
 
-      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Contact</span></span></a>
+      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -55,7 +54,6 @@
     </table>
   </div>
   <br>
-  <br>
   <!-- Select department -->
   <div class="container" *ngIf="scheduleData.length > 0 && !showDetails">
     <mat-form-field style="width: 250px;">
@@ -65,13 +63,14 @@
       </mat-select>
     </mat-form-field><br>
     <div style="text-align: center;">
-      <button mat-raised-button class="button-blue" (click)="viewDetails()">View Details</button>
+      <button mat-raised-button color="primary" (click)="viewDetails()">View Details</button>
     </div>
   </div>
   <br>
 
   <!-- Select date range -->
-  <div class="container" *ngIf="showDetails">
+  <div class="container" *ngIf="showDetails && !showSchedule">
+    <h3>The number of employees making FWA requests:</h3>
     <table>
       <thead>
         <tr>
@@ -102,10 +101,9 @@
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field><br>
     <div style="text-align: center;">
-      <button mat-raised-button class="button-blue" (click)="viewSchedule()">View Schedule</button>
+      <button mat-raised-button color="primary" (click)="viewSchedule()">View Schedule</button>
     </div>
   </div>
-  <br>
 
   <!-- Show schedule data -->
   <div class="container" *ngIf="filteredScheduleData.length > 0 && showSchedule">
@@ -128,7 +126,12 @@
         </tr>
       </tbody>
     </table>
+    <br>
+    <div style="text-align: center;">
+      <button routerLink="/" mat-raised-button color="primary">Go back</button>
+    </div>
   </div>
+  <br>
   <br>
 
 

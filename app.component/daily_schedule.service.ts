@@ -23,11 +23,6 @@ export class DailyScheduleServices{
     this.dSchedules.push(dSchedule);
   }
 
-  setHeaderMessage(msg:String){
-    //set the header component message
-    return msg;
-  }
-
   updateDSchedule(employeeID: string, workHours: string, workLocation: string, workReport: string, date: Date, comment: string,isEditMode:boolean) {
     const dsIndex = this.dSchedules.findIndex(ds => ds.employeeID === employeeID);
     if (dsIndex >= 0) {

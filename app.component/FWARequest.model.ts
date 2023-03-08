@@ -1,4 +1,4 @@
-export interface FWARequest{
+export interface Request{
   requestID: string;
   requestDate: Date;
   workType: string;

@@ -1,6 +1,5 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { DailyScheduleServices } from '../daily_schedule.service';
 import { DailySchedule } from '../daily_schedule.model';
 
@@ -51,6 +50,7 @@ export class DailyScheduleComponent implements OnInit{
         this.showForm = true;
       });
     }
+    this.form.reset();
     this.showForm = true;
   }
 }
