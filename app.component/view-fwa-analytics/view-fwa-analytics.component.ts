@@ -14,7 +14,7 @@ import { Employee } from '../employee.model';
   styleUrls: ['./view-fwa-analytics.component.css']
 })
 export class ViewFWAAnalyticsComponent implements OnInit{
-  selectedDepartment!: Department;
+  selectedDepartment!: string;
   dateKeys: string[] = [];
   dateCounts: {[date: string]: number} = {};
   startDate!: Date;
@@ -92,7 +92,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   }
 
   viewDetails(): void {
-    const selectedDept = this.departmentData.find(dept => dept.deptID === this.selectedDepartment.deptID);
+    const selectedDept = this.departmentData.find(dept => dept.deptID === this.selectedDepartment);
 
     // Filter the employees by the selected department
     this.filteredEmployees = this.employeeData.filter(emp => emp.deptID === selectedDept?.deptID);

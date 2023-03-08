@@ -4,7 +4,13 @@ import { Department } from './department.model';
 @Injectable({providedIn: 'root'})
 
 export class departmentServices{
-  private departments: Department[]=[];
+  private departments: Department[]=[
+    {deptID: 'D001',deptName: 'Sales',flexiHours: 5,workFromHome: 7,hybrid: 2},
+    {deptID: 'D002',deptName: 'IT',flexiHours: 5,workFromHome: 7,hybrid: 2},
+    {deptID: 'D003',deptName: 'Marketing',flexiHours: 5,workFromHome: 7,hybrid: 2},
+    {deptID: 'D004',deptName: 'Product',flexiHours: 5,workFromHome: 7,hybrid: 2},
+    {deptID: 'D005',deptName: 'Manage',flexiHours: 5,workFromHome: 7,hybrid: 2},
+  ];
 
 
 

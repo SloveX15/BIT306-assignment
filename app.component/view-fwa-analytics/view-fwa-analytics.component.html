@@ -2,6 +2,35 @@
 <br>
 <br>
 <br>
+<header id="nav-wrapper">
+  <nav id="nav">
+    <div class="nav left">
+      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
+      <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
+    </div>
+    <div class="nav right">
+      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
+      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">About</span></span></a>
+      <a routerLink="/update" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Update</span>
+        </span>
+      </a>
+      <a routerLink="/fwaAnalytics" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">View FWA Analytics</span>
+        </span>
+      </a>
+      <a routerLink="/review" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Review</span>
+        </span>
+      </a>
+
+      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Contact</span></span></a>
+    </div>
+  </nav>
+</header>
 <mat-card>
   <h2 class="info-text" style="font-size: 50px;">View FWA Analytics</h2>
   <div class="container" *ngIf="scheduleData.length > 0 && !showDetails">
@@ -39,6 +68,7 @@
       <button mat-raised-button class="button-blue" (click)="viewDetails()">View Details</button>
     </div>
   </div>
+  <br>
 
   <!-- Select date range -->
   <div class="container" *ngIf="showDetails">
@@ -56,6 +86,7 @@
         </tr>
       </tbody>
     </table>
+    <br>
 
     <mat-form-field style="margin-right: 20px;">
       <mat-label>Start Date:</mat-label>
@@ -74,6 +105,7 @@
       <button mat-raised-button class="button-blue" (click)="viewSchedule()">View Schedule</button>
     </div>
   </div>
+  <br>
 
   <!-- Show schedule data -->
   <div class="container" *ngIf="filteredScheduleData.length > 0 && showSchedule">
@@ -88,7 +120,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of scheduleData">
+        <tr *ngFor="let data of filteredScheduleData">
           <td>{{ data.date | date }}</td>
           <td>{{ data.employeeID }}</td>
           <td>{{ data.workLocation }}</td>
@@ -97,6 +129,7 @@
       </tbody>
     </table>
   </div>
+  <br>
 
 
   <p class="info-text mat-body-1" *ngIf="scheduleData.length == 0">No Schedule added yet </p>

@@ -4,7 +4,12 @@ import {Injectable} from '@angular/core';
 @Injectable({providedIn: 'root'})
 
 export class DailyScheduleServices{
-  private dSchedules: DailySchedule[]=[];
+  private dSchedules: DailySchedule[]=[
+    { date: new Date('2023-03-01'), employeeID: 'E001', workLocation: 'Work from Home', workHours: '8:00 AM - 5:00 PM', workReport: 'Finished project A on time', comment: 'Great job!', isEditMode: false },
+    { date: new Date('2023-03-02'), employeeID: 'E002', workLocation: 'Office', workHours: '9:00 AM - 6:00 PM', workReport: 'Attended meetings', comment: '', isEditMode: false },
+    { date: new Date('2023-03-03'), employeeID: 'E003', workLocation: 'Hybrid', workHours: '10:00 AM - 7:00 PM', workReport: 'Worked on project B', comment: 'Need to improve time management', isEditMode: false },
+    { date: new Date('2023-03-04'), employeeID: 'E004', workLocation: 'Office', workHours: '8:30 AM - 5:30 PM', workReport: 'Completed training program', comment: 'Well done!', isEditMode: false }
+  ];
 
 
 

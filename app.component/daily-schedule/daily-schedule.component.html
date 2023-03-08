@@ -1,45 +1,69 @@
 <br>
 <br>
 <br>
-<!-- <mat-form-field>
-  <textarea matInput rows="6" [(ngModel)]="enteredValue"></textarea>
-  <hr>
-  <button (click)="onAddPost()">Save Post</button>
+<header id="nav-wrapper">
+  <nav id="nav">
+    <div class="nav left">
+      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
+      <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
+    </div>
+    <div class="nav right">
+      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
+      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">About</span></span></a>
+      <a routerLink="/update" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Update</span>
+        </span>
+      </a>
+      <a routerLink="/fwaAnalytics" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">View FWA Analytics</span>
+        </span>
+      </a>
+      <a routerLink="/review" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Review</span>
+        </span>
+      </a>
 
-  <p>{{newPost}}</p>
-</mat-form-field> -->
+      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Contact</span></span></a>
+    </div>
+  </nav>
+</header>
 
 
 <mat-card>
   <h1 style="font-size: 50px;">Update Daily Schedule</h1>
   <form (submit)="onAddSchedule(postForm)" #postForm="ngForm">
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Select a date" ngModel #date="ngModel" name="date">
+      <input matInput [matDatepicker]="picker" placeholder="Select a date" ngModel #date="ngModel" name="date" [(ngModel)]="selectedDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="date.invalid">Invalid date</mat-error>
+      <button mat-raised-button class="button-blue" (click)="onDateSelected()" >OK</button>
     </mat-form-field>
+    <div *ngIf="showForm">
+      <mat-form-field>
+        <input matInput name="workLocation" type="text" ngModel required minlength="3"  #workLocation="ngModel" placeholder="Enter your work location">
+        <mat-error *ngIf="workLocation.invalid"> Please enter a work location</mat-error>
+      </mat-form-field>
 
-  <mat-form-field>
-    <input matInput name="workLocation" type="text" ngModel required minlength="3" #workLocation="ngModel" placeholder="Enter your work location">
-    <mat-error *ngIf="workLocation.invalid"> Please enter a post title</mat-error>
-  </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Select work hours" ngModel #workHours="ngModel" name="workHours" >
+          <mat-option value="8am - 4pm">8am - 4pm</mat-option>
+          <mat-option value="9am - 5pm">9am - 5pm</mat-option>
+          <mat-option value="10am - 6pm">10am - 6pm</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Select work hours" ngModel #workHours="ngModel" name="workHours">
-      <mat-option value="8am - 4pm">8am - 4pm</mat-option>
-      <mat-option value="9am - 5pm">9am - 5pm</mat-option>
-      <mat-option value="10am - 6pm">10am - 6pm</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <textarea matInput rows="4" name="workReport" ngModel required #workReport="ngModel" placeholder="Enter your work report"></textarea>
-    <mat-error *ngIf="workReport.invalid"> Please enter a post content</mat-error>
-  </mat-form-field>
-  <hr>
-  <button mat-raised-button class="button-blue" type="submit">Update</button>
-  <br>
+      <mat-form-field>
+        <textarea matInput rows="4" name="workReport" ngModel required #workReport="ngModel" placeholder="Enter your work report" ></textarea>
+        <mat-error *ngIf="workReport.invalid"> Please enter a work report</mat-error>
+      </mat-form-field>
+      <hr>
+      <button mat-raised-button class="button-blue" type="submit">Update</button>
+      <br>
+    </div>
   </form>
   <!-- <p>{{newPost}}</p> -->
 
