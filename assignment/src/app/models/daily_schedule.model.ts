@@ -1,5 +1,5 @@
 export interface DailySchedule{
-  employeeID:string;
+  employeeId:string;
   workLocation:string;
   workHours:string;
   workReport:string;

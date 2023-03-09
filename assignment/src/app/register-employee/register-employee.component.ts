@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register-employee.component.css']
 })
   export class RegisterEmployeeComponent implements OnInit{
-    employeeID!: number;
+    employeeID!: string;
   
     employeeName!: string;
   position!: string;
@@ -38,7 +38,7 @@ import { NgForm } from '@angular/forms';
       email: this.email,
       FWAstatus: this.FWAstatus,
       supervisorID:this.supervisorID,
-      department: this.departmentService.getDepartment(this.selectedDepartment)
+      department: this.departmentService.getDepartmentID(this.selectedDepartment)
     };
     this.registerEmployeeServices.addEmployee(newEmployee.employeeId, newEmployee.password, 
       newEmployee.name, newEmployee.position, newEmployee.email, newEmployee.FWAstatus, newEmployee.supervisorID,

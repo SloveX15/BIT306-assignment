@@ -23,8 +23,23 @@ export class DepartmentService {
     return this.departments;
   }
 
-  getDepartment(deptID: string): Department {
+  getDepartmentID(deptID: string): Department {
     return this.departments.find(dept => dept.deptID === deptID)!;
+  }
+
+
+ 
+
+  updateWorkType(deptID: string, deptName: string, flexiHours:number, workFromHome:number, hybrid:number) {
+    const dIndex = this.departments.findIndex(d => d.deptID === deptID);
+    if (dIndex >= 0) {
+      this.departments[dIndex] = {deptID, deptName, flexiHours, workFromHome, hybrid};
+      // You can also save the updated data to the database using an HTTP request
+    }
+  }
+
+  getDepartmentName(departmentName: string): Department {
+    return this.departments.find(dept => dept.deptName === departmentName)!;
   }
 
 }

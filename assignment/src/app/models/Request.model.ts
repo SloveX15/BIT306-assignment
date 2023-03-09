@@ -1,6 +1,6 @@
 export interface Request {
- requestId: number;
- requestDate: string;
+ requestId: string;
+ requestDate: Date;
  workType: string;
  description: string;
  reason: string;

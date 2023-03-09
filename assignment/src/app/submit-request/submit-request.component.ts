@@ -33,14 +33,14 @@ export class SubmitRequestComponent implements OnInit {
     }
   
     const requestId = Math.floor(Math.random() * 1000) + 1;
-    const requestDate = new Date().toLocaleString();
+    const requestDate = new Date();
     const workType = form.value.workType;
     const description = form.value.description;
     const reason = form.value.reason;
     const status = 'pending';
   
     this.submitRequestService.addRequest(
-      requestId,
+      requestId.toString(),
       requestDate,
       workType,
       description,

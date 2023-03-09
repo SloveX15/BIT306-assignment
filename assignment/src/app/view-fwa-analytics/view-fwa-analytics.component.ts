@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { Request } from '../FWARequest.model';
-import { FWARequestServices } from '../FWARequest.service';
-import { DailyScheduleServices } from '../daily_schedule.service';
-import { DailySchedule } from '../daily_schedule.model';
-import { departmentServices } from '../department.service';
-import { Department } from '../department.model';
-import { EmployeeServices } from '../employee.service';
-import { Employee } from '../employee.model';
+import { Request } from '../models/Request.model';
+import { submitRequestServices } from '../services/request.service';
+import { DailyScheduleServices } from '../services/daily_schedule.service';
+import { DailySchedule } from '../models/daily_schedule.model';
+import { DepartmentService } from '../services/department.service';
+import { Department } from '../models/Department.model';
+import { registerEmployeeServices } from '../services/register-employee.service';
+import { Employee } from '../models/Employee.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -31,16 +31,16 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   scheduleData: DailySchedule[] = [];
 
   constructor(public dailyScheduleService: DailyScheduleServices,
-    public departmentService:departmentServices,
-    public fwaRequestService:FWARequestServices,
-    public employeeService:EmployeeServices,
+    public departmentService:DepartmentService,
+    public fwaRequestService:submitRequestServices,
+    public employeeService:registerEmployeeServices,
     private router:Router){
 
   }
 
   ngOnInit(): void {
     this.employeeData = this.employeeService.getEmployees();
-    this.fwaData = this.fwaRequestService.getFWARequests();
+    this.fwaData = this.fwaRequestService.getRequests();
     this.scheduleData = this.dailyScheduleService.getDShedule();
     this.departmentData = this.departmentService.getDepartments();
   }
@@ -48,7 +48,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   viewSchedule() {
     this.filteredScheduleData = this.scheduleData.filter(schedule => {
       // Check if the schedule employee is in the filteredEmployees array
-      let employee = this.filteredEmployees.find(emp => emp.employeeID === schedule.employeeID);
+      let employee = this.filteredEmployees.find(emp => emp.employeeId === schedule.employeeId);
       if (employee) {
         return true; // Keep this schedule in the filteredScheduleData array
       }
@@ -75,7 +75,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     // Iterate through the FWARequest array
     for (let fwaRequest of this.fwaData) {
       // Check if the request employee is in the filteredEmployees array
-      let employee = this.filteredEmployees.find(emp => emp.employeeID === fwaRequest.employeeID);
+      let employee = this.filteredEmployees.find(emp => emp.employeeId === fwaRequest.employeeID);
       if (employee) {
         // Get the date of the request
         let requestDate = fwaRequest.requestDate.toISOString().substr(0, 10); // convert to YYYY-MM-DD format

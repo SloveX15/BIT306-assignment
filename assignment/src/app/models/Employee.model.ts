@@ -1,7 +1,7 @@
 import { Department } from "./Department.model";
 
 export interface Employee {
-    employeeId: number;
+    employeeId: string;
     password: string;
     name: string;
     position: string;

@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 
 export class submitRequestServices {
   private requests: Request[] = [{
-    requestId: 1,
-    requestDate: '2023-02-25T16:36:01.000Z',
+    requestId: "1",
+    requestDate: new Date('2023-02-25'),
     workType: 'Type 1',
     description: 'Description 1',
     reason: 'Reason 1',
@@ -16,8 +16,8 @@ export class submitRequestServices {
     employeeID: "EMP101"
     },
     {
-    requestId: 2,
-    requestDate: '2023-02-24T10:05:22.000Z',
+    requestId: "2",
+    requestDate: new Date('2023-02-24'),
     workType: 'Type 2',
     description: 'Description 2',
     reason: 'Reason 2',
@@ -33,8 +33,8 @@ export class submitRequestServices {
   }
 
   addRequest(
-    requestId: number,
-    requestDate: string,
+    requestId: string,
+    requestDate: Date,
     workType: string,
     description: string,
     reason: string,
@@ -58,7 +58,7 @@ export class submitRequestServices {
     this.requests.push(request);
   }
 
-  updateRequest(requestId: number, newStatus: string, newCommnet:string) {
+  updateRequest(requestId: string, newStatus: string, newCommnet:string) {
     const index = this.requests.findIndex(request => request.requestId === requestId);
     if (index !== -1) {
       this.requests[index].status = newStatus;

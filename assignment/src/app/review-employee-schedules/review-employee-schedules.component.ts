@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
-import { DailyScheduleServices } from '../daily_schedule.service';
-import { DailySchedule } from '../daily_schedule.model';
+import { DailyScheduleServices } from '../services/daily_schedule.service';
+import { DailySchedule } from '../models/daily_schedule.model';
 @Component({
   selector: 'app-review-employee-schedules',
   templateUrl: './review-employee-schedules.component.html',
@@ -21,7 +21,7 @@ export class ReviewEmployeeSchedulesComponent implements OnInit{
   }
 
   onSaveSupervisorComments(ds: DailySchedule) {
-    this.dailyScheduleService.updateDSchedule(ds.employeeID, ds.workHours, ds.workLocation, ds.workReport, ds.date, ds.comment,true);
+    this.dailyScheduleService.updateDSchedule(ds.employeeId, ds.workHours, ds.workLocation, ds.workReport, ds.date, ds.comment,true);
     this.isEditing = false; // toggle off editing mode after save
   }
 

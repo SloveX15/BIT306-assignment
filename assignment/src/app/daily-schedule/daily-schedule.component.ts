@@ -1,9 +1,9 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DailyScheduleServices } from '../daily_schedule.service';
-import { DailySchedule } from '../daily_schedule.model';
-import { Employee } from '../employee.model';
-import { EmployeeServices } from '../employee.service';
+import { DailyScheduleServices } from '../services/daily_schedule.service';
+import { DailySchedule } from '../models/daily_schedule.model';
+import { Employee } from '../models/Employee.model';
+import { registerEmployeeServices } from '../services/register-employee.service';
 
 @Component({
   selector: 'app-daily-schedule',
@@ -12,7 +12,7 @@ import { EmployeeServices } from '../employee.service';
 })
 export class DailyScheduleComponent implements OnInit{
   employee!:Employee;
-  employeeID :string = this.employee.employeeID;
+  employeeID :string = this.employee.employeeId;
   showForm! : boolean;
   selectedDate!:Date;
   dailySchedules : DailySchedule []=[];
@@ -20,7 +20,7 @@ export class DailyScheduleComponent implements OnInit{
   @ViewChild('postForm', { static: false, read: NgForm }) form!: NgForm;
 
   constructor(public dailyScheduleService : DailyScheduleServices,
-    public employeeService: EmployeeServices){
+    public employeeService: registerEmployeeServices){
 
   }
 
@@ -42,7 +42,7 @@ export class DailyScheduleComponent implements OnInit{
   onDateSelected() {
     const matchingSchedule = this.dailySchedules.find(schedule =>
       schedule.date.toDateString() === this.selectedDate.toDateString() &&
-      schedule.employeeID === this.employeeID
+      schedule.employeeId === this.employeeID
     );
     if (matchingSchedule) {
       setTimeout(() => {
