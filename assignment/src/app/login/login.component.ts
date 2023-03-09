@@ -20,12 +20,8 @@ export class LoginComponent implements OnInit {
   loginStatus = false;
 
   login(form: NgForm): void {
-    if (form.invalid) {
-      return alert('Invalid username or password!');
-    }
-
     this.loginStatus = this.loginService.authenticateLogin(form.value.username, form.value.password);
-    
+  
     if (this.loginStatus) {
       if (this.loginService.isEmployee()) {
         this.router.navigate(['submit-request']);
@@ -34,8 +30,11 @@ export class LoginComponent implements OnInit {
       } else if (this.loginService.isAdmin()) {
         this.router.navigate(['admin-homepage']);
       }
+    } else {
+      alert('Invalid username or password. Please enter valid credentials.');
     }
   }
+  
 }
 
 
