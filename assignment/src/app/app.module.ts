@@ -15,7 +15,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
-
 import { MatInputModule} from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 
@@ -36,9 +35,9 @@ const routes: Routes = [
   { path: 'submit-request', component: SubmitRequestComponent },
   { path: 'review-request', component: ReviewRequestComponent },
   { path: 'admin-homepage', component: AdminHomepageComponent},
-  {path:'update', component: DailyScheduleComponent},
-  {path:'review', component: ReviewEmployeeSchedulesComponent},
-  {path:'fwaAnalytics', component: ViewFWAAnalyticsComponent}
+  { path: 'update', component: DailyScheduleComponent},
+  { path: 'review', component: ReviewEmployeeSchedulesComponent},
+  { path: 'fwaAnalytics', component: ViewFWAAnalyticsComponent}
 ]
 
 @NgModule({

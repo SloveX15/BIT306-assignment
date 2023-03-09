@@ -9,24 +9,11 @@
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="#home" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home</span></span></a>
-      <a routerLink="/" class="nav-link active">
-        <span class="nav-link-span">
-          <span class="u-nav">Review FWA Request</span>
-        </span>
-      </a>
-      <a routerLink="/review" class="nav-link">
-        <span class="nav-link-span">
-          <span class="u-nav">Review Schedule</span>
-        </span>
-      </a>
-      <a routerLink="/fwaAnalytics" class="nav-link">
-        <span class="nav-link-span">
-          <span class="u-nav">FWA Analytics</span>
-        </span>
-      </a>
-
-      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      <a href="review-request" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
+      <a href="fwaAnalytics" class="nav-link active"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
+      <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
+      
+      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -42,7 +29,7 @@
     <br>
     <mat-expansion-panel *ngFor="let ds of filteredSchedules">
       <mat-expansion-panel-header>
-        {{ ds.employeeID }}
+        {{ ds.employeeId }}
       </mat-expansion-panel-header>
       <p>Work Location :{{ ds.workLocation }}</p>
       <p>Working Hours :{{ ds.workHours }}</p>
