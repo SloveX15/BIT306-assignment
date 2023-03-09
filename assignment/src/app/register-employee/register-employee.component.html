@@ -51,12 +51,12 @@
     <br>
     <label>
       Email:
-      <input type="email" [(ngModel)]="email" name="email">
+      <input type="email" [(ngModel)]="email" name="email" required>
     </label>
     <br>
     <label>
       Supervisor ID:
-      <input id="supervisorID" type="text" [(ngModel)]="supervisorID" name="supervisorID" [disabled]="position === '1'">
+      <input id="supervisorID" type="text" [(ngModel)]="supervisorID" name="supervisorID" [disabled]="position === '1'" required>
     </label>
     <br>
   

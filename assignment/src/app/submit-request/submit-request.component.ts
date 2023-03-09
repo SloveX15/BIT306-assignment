@@ -33,7 +33,7 @@ export class SubmitRequestComponent implements OnInit {
     }
   
     const requestId = Math.floor(Math.random() * 1000) + 1;
-    const requestDate = new Date().toISOString();
+    const requestDate = new Date().toLocaleString();
     const workType = form.value.workType;
     const description = form.value.description;
     const reason = form.value.reason;

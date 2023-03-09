@@ -248,3 +248,6 @@ a:not(.btn-nav):hover {
   opacity: 0.5;
   cursor: default;
 }
+.list-actions button {
+  margin-top: 10px; /* adjust the value as needed */
+}

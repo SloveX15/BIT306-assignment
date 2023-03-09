@@ -9,7 +9,7 @@ import { AdminLoginService } from '../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username = '';
+  username = '';  
   password = '';
   error = false;
 
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginStatus = this.loginService.authenticateLogin(form.value.username, form.value.password);
-
+    
     if (this.loginStatus) {
       if (this.loginService.isEmployee()) {
         this.router.navigate(['submit-request']);

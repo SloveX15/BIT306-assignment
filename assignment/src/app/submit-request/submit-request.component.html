@@ -20,19 +20,19 @@
     <form (submit)="onSubmit(ngForm)" #ngForm="ngForm">
         <div class="form-group">
           <label for="worktype">Work Type:</label>
-          <select class="form-control" id="worktype" name='workType' [(ngModel)]="selectedWorkType">
+          <select class="form-control" id="worktype" name='workType' [(ngModel)]="selectedWorkType" required>
             <option *ngFor="let workType of workTypes" [value]="workType">{{ workType }}</option>
           </select>
         </div>
         
         <div class="form-group">
           <label for="description">Description:</label>
-          <textarea class="form-control" id="description" name="description" rows="3" [(ngModel)]="description"></textarea>
+          <textarea class="form-control" id="description" name="description" rows="3" [(ngModel)]="description" required></textarea>
         </div>
         
         <div class="form-group">
           <label for="reason">Reason:</label>
-          <textarea class="form-control" id="reason" name="reason" rows="3" [(ngModel)]="reason"></textarea>
+          <textarea class="form-control" id="reason" name="reason" rows="3" [(ngModel)]="reason" required></textarea>
         </div>
         
         <button type="submit" class="btn btn-primary" >Submit</button>

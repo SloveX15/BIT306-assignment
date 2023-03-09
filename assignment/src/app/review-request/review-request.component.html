@@ -30,11 +30,43 @@
         <p>Description: {{ request.description }}</p>
         <p>Reason: {{ request.reason }}</p>
         <p>Status: {{ request.status }}</p>
+        <p>Comment: {{ request.comment }}</p>
         <div class="list-actions">
-          <button (click)="approveRequest()" [disabled]="selectedRequest.status !== 'pending'">Approve</button>
-          <button style="background-color: red;" (click)="rejectRequest()" [disabled]="selectedRequest.status !== 'pending'">Reject</button>
+          <label for="comment">Add Comment:</label><br>
+<textarea id="comment" name="comment" [(ngModel)]="commentText"
+          *ngIf="selectedRequest.status === 'pending'"
+          [disabled]="selectedRequest.status !== 'pending'"></textarea>
+<div *ngIf="selectedRequest.status !== 'pending'">
+  <p style="color: red;">No comment can be added for this request as it is already {{selectedRequest.status}}.</p>
+</div>
+<br>
+
+<button (click)="approveRequest()" [disabled]="selectedRequest.status !== 'pending'">Approve</button>
+<button style="background-color: red;" (click)="rejectRequest()" [disabled]="selectedRequest.status !== 'pending'">Reject</button> 
+
         </div>
       </div>
-    </li>
+</li>
   </ul>
 </nav>
+
+
+<!-- <div class="list-actions">
+  <button
+mat-raised-button
+color="primary"
+[disabled]="!isRequestPending()"
+(click)="approveRequest()"
+>
+Approve
+</button>
+<button
+mat-raised-button
+color="warn"
+[disabled]="!isRequestPending()"
+(click)="rejectRequest()"
+>
+Reject
+</button>
+
+</div> -->

@@ -13,7 +13,7 @@ import {MatTableModule} from '@angular/material/table';
 import { ConfirmDialogComponent } from './templates/confirm-dialog.componenet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -42,7 +42,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
