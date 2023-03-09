@@ -201,7 +201,7 @@ footer {
   background-color: #00A3FF;
   color: white;
   clear: both;
-  position: relative;
-
-  margin-top: 405px;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
 }

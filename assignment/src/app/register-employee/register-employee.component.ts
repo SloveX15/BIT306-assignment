@@ -1,51 +1,76 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../models/Employee.model';
+import { Department } from '../models/Department.model';
+import { registerEmployeeServices } from '../services/register-employee.service';
+import { DepartmentService } from '../services/department.service';
+import { NgForm } from '@angular/forms';
+
+
+
+
 
 @Component({
   selector: 'app-register-employee',
   templateUrl: './register-employee.component.html',
   styleUrls: ['./register-employee.component.css']
 })
-export class RegisterEmployeeComponent {
-  selectedDepartment: string = '';
-  departments = [
-    { id: '1', name: 'Department 1' },
-    { id: '2', name: 'Department 2' },
-    { id: '3', name: 'Department 3' }
-  ];
-  // onSubmit() {
-  //   // call the employeeService to add the new employee to the array
-  //   this.employeeService.addEmployee(this.employee);
-  //   // reset the form and employee object
-  //   this.employee = new Employee();
-  // }
+  export class RegisterEmployeeComponent implements OnInit{
+    employeeID!: number;
+  
+    employeeName!: string;
+  position!: string;
+  email!: string;
+  FWAstatus!: string;
+  supervisorID!: string;
+  department!: Department;
+
+  constructor(private registerEmployeeServices: registerEmployeeServices,
+    public departmentService: DepartmentService,
+    private router: Router) { }
+
+  addEmployee() {
+    const newEmployee: Employee = {
+      employeeId: this.employeeID,
+      password: this.generatePassword(),
+      name: this.employeeName,
+      position: this.position,
+      email: this.email,
+      FWAstatus: this.FWAstatus,
+      supervisorID:this.supervisorID,
+      department: this.departmentService.getDepartment(this.selectedDepartment)
+    };
+    this.registerEmployeeServices.addEmployee(newEmployee.employeeId, newEmployee.password, 
+      newEmployee.name, newEmployee.position, newEmployee.email, newEmployee.FWAstatus, newEmployee.supervisorID,
+       newEmployee.department);
+
+       alert("Employee registered successfully!");
+    this.router.navigate(['admin-homepage']);
+    
+  }
+    selectedDepartment: string = '';
+    
+   
+    departments : Department[] =[];
+    
     
 
+    
 
-  employeeName: string='';
-  employeeID: string='';
-  position: string='';
-  email: string='';
-  supervisorID: string='';
-  employeeStatus = 'new';
-  constructor(private router: Router) { }
-  registerEmployee() {
-    const selectedDepartment = this.departments.find(department => department.id === this.selectedDepartment);
-    const departmentName = selectedDepartment ? selectedDepartment.name : undefined;
-
-const employee = {
-  department: departmentName,
-  name: this.employeeName,
-  id: this.employeeID,
-  position: this.position,
-  email: this.email,
-  status: this.employeeStatus
-};
+  generatePassword() {
+        var length = 8,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            retVal = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }
+        return retVal;
+    }
 
 
 
-    // TODO: Send the employee data to the server or perform any other necessary actions
-    console.log(employee);
+  ngOnInit(): void {
+    this.departments = this.departmentService.getDepartments();
   }
 }
+

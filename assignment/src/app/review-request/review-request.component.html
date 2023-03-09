@@ -1,14 +1,15 @@
 <header id="nav-wrapper">
   <nav id="nav">
     <div class="nav left">
-      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Logo Here</a></h1></span>
+      <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="#home" class="nav-link active"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-      <a href="#about" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
-      <a href="#work" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
-      <a href="#contact" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      <a href="fwaAnalytics" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
+      <a href="review-request" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
+      <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
+      <a href="
+      " class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -16,36 +17,24 @@
 <br>
 <br>
 <br>
+<h2>Request List</h2>
 <nav class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Request ID</th>
-        <th>Request Date</th>
-        <th>Work Type</th>
-        <th>Description</th>
-        <th>Reason</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let request of requests">
-        <td>{{ request.requestId }}</td>
-        <td>{{ request.requestDate }}</td>
-        <td>{{ request.workType }}</td>
-        <td>{{ request.description }}</td>
-        <td>{{ request.reason }}</td>
-        <td>{{ request.status }}</td>
-        <td>
-          <button >Approve</button>
-          <button >Reject</button>
-          <!-- (click)="onSelect(request)" -->
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  
-  
+  <ul class="list">
+    <li *ngFor="let request of requests" (click)="onSelect(request)">
+      <div class="list-header">
+        <h3>Request ID: {{ request.requestId }}</h3>
+        <p>Request Date: {{ request.requestDate }}</p>
+      </div>
+      <div class="list-details" *ngIf="selectedRequest === request">
+        <p>Work Type: {{ request.workType }}</p>
+        <p>Description: {{ request.description }}</p>
+        <p>Reason: {{ request.reason }}</p>
+        <p>Status: {{ request.status }}</p>
+        <div class="list-actions">
+          <button (click)="approveRequest()" [disabled]="selectedRequest.status !== 'pending'">Approve</button>
+          <button style="background-color: red;" (click)="rejectRequest()" [disabled]="selectedRequest.status !== 'pending'">Reject</button>
+        </div>
+      </div>
+    </li>
+  </ul>
 </nav>

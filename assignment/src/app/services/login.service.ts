@@ -2,41 +2,47 @@ import { Injectable } from '@angular/core';
 
 import { Admin } from '../models/Admin.model';
 
-@Injectable({providedIn: 'root'})
-
-@Injectable({
-  providedIn: 'root'
-})
-
-export class adminLoginService {
+@Injectable({ providedIn: 'root' })
+export class AdminLoginService {
   constructor() { }
 
-  private hradmins: Admin[] = [
-    {username: 'a', password:'p',fullname:' Alice'},
-    {username: 'b', password:'p',fullname:' Zara'},
-    ];
+  private admins: Admin[] = [
+    { username: 'a', password: 'p', fullname: 'Alice', userType: 'HR' },
+    { username: 'b', password: 'p', fullname: 'Zara', userType: 'HR' },
+    { username: 'c', password: 'p', fullname: 'John', userType: 'Employee' },
+    { username: 'd', password: 'p', fullname: 'Mary', userType: 'Supervisor' }
+  ];
 
-    private loggedinAdmin: Admin | undefined ;
-     //loggedinAdmin : Admin = { username:'', password:'', fullname:''};
+  private loggedInAdmin: Admin | undefined;
 
-    authenticateLogin(username: string, password: string) : boolean {
+  authenticateLogin(username: string, password: string): boolean {
+    const admin = this.admins.find(x => x.username === username && x.password === password);
 
-    const hr = this.hradmins.find(x => x.username == username && x.password == password);
-    // find will return undefined in case no matches found
-    if(hr != undefined) {
-      // set logedinAdmin to currently logged in user/hr
-      this.loggedinAdmin = hr;
+    if (admin) {
+      this.loggedInAdmin = admin;
       return true;
     }
+
     return false;
   }
 
-  whoseLoggedIn(){
-    return this.loggedinAdmin;
+  whoseLoggedIn(): Admin | undefined {
+    return this.loggedInAdmin;
   }
 
-  logout(){
-    this.loggedinAdmin = undefined;
+  logout(): void {
+    this.loggedInAdmin = undefined;
   }
 
+  isAdmin(): boolean {
+    return this.loggedInAdmin?.userType === 'HR';
+  }
+
+  isEmployee(): boolean {
+    return this.loggedInAdmin?.userType === 'Employee';
+  }
+
+  isSupervisor(): boolean {
+    return this.loggedInAdmin?.userType === 'Supervisor';
+  }
 }

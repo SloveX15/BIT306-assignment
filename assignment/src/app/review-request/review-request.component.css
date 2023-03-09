@@ -191,3 +191,60 @@ a:not(.btn-nav):hover {
     padding-right: 5em;
   }
 }
+
+
+/*-------------List-------------*/
+
+
+.container {
+  padding: 10px;
+  background-color: #f1f1f1;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.list li:hover {
+  background-color: #f9f9f9;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #192841;
+  color: #ffffff;
+}
+
+.list-header h3 {
+  margin: 0;
+}
+
+.list-details {
+  padding: 10px;
+}
+
+.list-actions button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+}
+
+.list-actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

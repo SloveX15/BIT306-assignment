@@ -32,6 +32,70 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0080D6;
 }
+body {
+  background-color: #fff;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+h2 {
+  
+  color: #000;
+  text-align: center;
+}
+
+form label {
+  font-weight: 600;
+  color: #333;
+}
+
+form input,
+form select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+form select {
+  height: 40px;
+}
+
+form button {
+  background-color: #00A3FF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0091d4;
+}
+
+.error-message {
+  color: #ff4444;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #00c851;
+  font-weight: 600;
+  margin-top: 10px;
+}
 
 
 

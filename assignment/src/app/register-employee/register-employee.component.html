@@ -19,15 +19,12 @@
 <br>
 <br>
 <div class="container">
-  <form>
-    <label>
-      Department:
-      <select [(ngModel)]="selectedDepartment" required>
-        <option *ngFor="let department of departments" [value]="department.id">{{ department.name }}</option>
-
-
-      </select>
-    </label>
+  <form  #ngForm="ngForm">
+    <label for="department">Department:</label>
+    <select id="department" [(ngModel)]="selectedDepartment" name="department">
+      <option value="">-- Select Department --</option>
+      <option *ngFor="let dept of departments" [value]="dept.deptID">{{ dept.deptName }}</option>
+    </select>
     <br>
   
     <label>
@@ -47,8 +44,8 @@
       Position:
       <select type="position" id="position" name="position" [(ngModel)]="position" ng-change="TypeChange(position,$index)" required>
         <option value="">-- Select Position --</option>
-        <option value="1">Supervisor</option>
-        <option value="2">Employee</option>
+        <option value="Supervisor">Supervisor</option>
+        <option value="Employee">Employee</option>
       </select>
     </label>
     <br>
@@ -63,7 +60,7 @@
     </label>
     <br>
   
-    <button (click)="registerEmployee()">Register Employee</button>
+    <button type="submit" (click)="addEmployee()" >Register Employee</button>
   </form>
   
 </div>

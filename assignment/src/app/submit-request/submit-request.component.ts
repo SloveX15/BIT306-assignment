@@ -1,39 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Request } from '../models/Request.model';
+import { submitRequestServices } from '../services/request.service';
+import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-submit-request',
   templateUrl: './submit-request.component.html',
   styleUrls: ['./submit-request.component.css']
 })
 export class SubmitRequestComponent implements OnInit {
-  workTypes = ['Type 1', 'Type 2', 'Type 3'];
+  workTypes = ['flexi-hour', 'work-from-home', 'hybrid'];
   selectedWorkType: string = '';
   description: string = '';
   reason: string = '';
-  
-  constructor(private router: Router) { }
+  requestId: number = Math.floor(Math.random() * 1000) + 1;
+  requestDate: string = new Date().toISOString();
+    
+  // Set status to 'pending'
+  status: string = 'pending';
 
-  ngOnInit(): void {
-  }
+  constructor(
+    private router: Router,
+    public submitRequestService: submitRequestServices
+  ) { }
+
+  ngOnInit(): void {}
+
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
   
-  onSubmit() {
-    // Generate request ID and date
     const requestId = Math.floor(Math.random() * 1000) + 1;
     const requestDate = new Date().toISOString();
-    
-    // Set status to 'pending'
+    const workType = form.value.workType;
+    const description = form.value.description;
+    const reason = form.value.reason;
     const status = 'pending';
-    
-    // Create request object
-    const request = {
+  
+    this.submitRequestService.addRequest(
       requestId,
       requestDate,
-      workType: this.selectedWorkType,
-      description: this.description,
-      reason: this.reason,
-      status
-    };
-    
-    console.log(request);
+      workType,
+      description,
+      reason,
+      status,
+      '',
+      ''
+    );
+    alert("Request have been submitted")
+    // navigate to requests page
+    this.router.navigate(['/review-request']);
   }
 }

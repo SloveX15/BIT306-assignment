@@ -1,48 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Request } from '../models/Request.model';
 import { Router } from '@angular/router';
-
+import { submitRequestServices } from '../services/request.service';
 @Component({
 selector: 'app-review-request',
 templateUrl: './review-request.component.html',
 styleUrls: ['./review-request.component.css']
 })
 export class ReviewRequestComponent implements OnInit {
+selectedRequest!: Request;
 requests: Request[] = [
-{
-requestId: 1,
-requestDate: '2023-02-25T16:36:01.000Z',
-workType: 'Type 1',
-description: 'Description 1',
-reason: 'Reason 1',
-status: 'pending'
-},
-{
-requestId: 2,
-requestDate: '2023-02-24T10:05:22.000Z',
-workType: 'Type 2',
-description: 'Description 2',
-reason: 'Reason 2',
-status: 'approved'
-}
+    
 ];
-constructor(private router: Router) { }
+constructor(private router: Router, private submitRequestService: submitRequestServices) { }
 
+onSelect(request: Request) {
+    this.selectedRequest = request;
+  }
 
 ngOnInit(): void {
+    this.requests = this.submitRequestService.getRequests();
 }
 
-submitRequest(workType: string, description: string, reason: string) {
-const newRequest: Request = {
-requestId: this.requests.length + 1,
-requestDate: new Date().toISOString(),
-workType: workType,
-description: description,
-reason: reason,
-status: 'pending'
-};
-this.requests.push(newRequest);
-}
+approveRequest() {
+    alert("Request have been updated!")
+    this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'approved', '');
+  }
+  
+  rejectRequest() {
+    alert("Request have been updated!")
+    this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'rejected', '');
+  }
 
 }
 

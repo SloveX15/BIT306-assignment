@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { DepartmentService } from "src/app/services/department.service";
-import { Department } from "../models/Department.model";
-import { MatTableDataSource } from "@angular/material/table";
+import { Employee } from "../models/Employee.model";
+import { registerEmployeeServices } from "../services/register-employee.service";
 
 
 @Component({
@@ -11,17 +10,18 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class AdminHomepageComponent implements OnInit{
   
-  @Input() tableData: unknown[] | undefined;
-  @Input() columnHeader: any;
-  objectKeys = Object.keys;
-  dataSource!: MatTableDataSource<unknown>;
+  displayedColumns: string[] = ['position', 'name', 'email', 'department'];
 
-  departments: Department[] = [];
+  constructor(private employeeService: registerEmployeeServices ) { }
+  empList : Employee  [] = [];
 
-  constructor(public departmentService: DepartmentService) {}
+
+  
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.tableData);
+    this.empList = this.employeeService.getEmployee();
+    
   }
 
+  
 }

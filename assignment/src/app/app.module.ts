@@ -10,6 +10,9 @@ import { ReviewRequestComponent } from './review-request/review-request.componen
 import { AdminHomepageComponent } from './admin-homepage/admin-homepage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
+import { ConfirmDialogComponent } from './templates/confirm-dialog.componenet';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 const routes: Routes = [
@@ -28,6 +31,8 @@ const routes: Routes = [
     SubmitRequestComponent,
     ReviewRequestComponent,
     AdminHomepageComponent,
+    ConfirmDialogComponent
+    
     
   ],
   imports: [
@@ -35,7 +40,9 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

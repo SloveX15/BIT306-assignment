@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { adminLoginService } from '../services/login.service';
+import { AdminLoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,32 +9,35 @@ import { adminLoginService } from '../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
+  username = '';
+  password = '';
+  error = false;
 
-  password: string = '';
-  error: boolean = false;
+  constructor(private loginService: AdminLoginService, private router: Router) { }
 
-  
-  constructor(
-    private loginService: adminLoginService,
-    private router: Router
-    ) { }
   ngOnInit(): void {}
 
   loginStatus = false;
 
-  login(form: NgForm) {
-    if(form.invalid){
-      return alert("Invalid username or password!");
+  login(form: NgForm): void {
+    if (form.invalid) {
+      return alert('Invalid username or password!');
     }
-    this.loginStatus = this.loginService.authenticateLogin(form.value.username,form.value.password);
 
-    if(this.loginStatus) {
-      this.router.navigate(['admin-homepage']);
+    this.loginStatus = this.loginService.authenticateLogin(form.value.username, form.value.password);
+
+    if (this.loginStatus) {
+      if (this.loginService.isEmployee()) {
+        this.router.navigate(['submit-request']);
+      } else if (this.loginService.isSupervisor()) {
+        this.router.navigate(['review-request']);
+      } else if (this.loginService.isAdmin()) {
+        this.router.navigate(['admin-homepage']);
+      }
     }
-   
   }
 }
+
 
  // if (this.username === 'admin' && this.password === 'admin123') {
     //   // Navigate to the home page or do something else on successful login
