@@ -14,13 +14,31 @@ import { ConfirmDialogComponent } from './templates/confirm-dialog.componenet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
+
+import { MatInputModule} from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+import { ReviewEmployeeSchedulesComponent } from './review-employee-schedules/review-employee-schedules.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ViewFWAAnalyticsComponent } from './view-fwa-analytics/view-fwa-analytics.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register-employee', component: RegisterEmployeeComponent },
   { path: 'submit-request', component: SubmitRequestComponent },
   { path: 'review-request', component: ReviewRequestComponent },
-  { path: 'admin-homepage', component: AdminHomepageComponent}
+  { path: 'admin-homepage', component: AdminHomepageComponent},
+  {path:'update', component: DailyScheduleComponent},
+  {path:'review', component: ReviewEmployeeSchedulesComponent},
+  {path:'fwaAnalytics', component: ViewFWAAnalyticsComponent}
 ]
 
 @NgModule({
@@ -31,7 +49,10 @@ const routes: Routes = [
     SubmitRequestComponent,
     ReviewRequestComponent,
     AdminHomepageComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    DailyScheduleComponent,
+    ReviewEmployeeSchedulesComponent,
+    ViewFWAAnalyticsComponent
     
     
   ],
@@ -43,7 +64,15 @@ const routes: Routes = [
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
