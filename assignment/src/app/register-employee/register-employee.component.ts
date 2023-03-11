@@ -24,12 +24,18 @@ import { NgForm } from '@angular/forms';
   FWAstatus!: string;
   supervisorID!: string;
   department!: Department;
+  
+
 
   constructor(private registerEmployeeServices: registerEmployeeServices,
     public departmentService: DepartmentService,
     private router: Router) { }
 
   addEmployee() {
+    if (!this.selectedDepartment || !this.employeeName || !this.employeeID || !this.position || !this.email) {
+      alert('Please fill out all required fields');
+      return;
+    }
     const newEmployee: Employee = {
       employeeId: this.employeeID,
       password: this.generatePassword(),
@@ -71,6 +77,7 @@ import { NgForm } from '@angular/forms';
 
   ngOnInit(): void {
     this.departments = this.departmentService.getDepartments();
+    
   }
 }
 

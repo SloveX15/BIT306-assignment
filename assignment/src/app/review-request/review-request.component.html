@@ -25,11 +25,13 @@
         <p>Request Date: {{ request.requestDate }}</p>
       </div>
       <div class="list-details" *ngIf="selectedRequest === request">
+        <p>Employee: {{request.employeeID}}</p>
         <p>Work Type: {{ request.workType }}</p>
         <p>Description: {{ request.description }}</p>
         <p>Reason: {{ request.reason }}</p>
         <p>Status: {{ request.status }}</p>
         <p>Comment: {{ request.comment }}</p>
+        
         <div class="list-actions">
           <label for="comment">Add Comment:</label><br>
 <textarea id="comment" name="comment" [(ngModel)]="commentText"
@@ -48,24 +50,6 @@
 </li>
   </ul>
 </nav>
-
-
-<!-- <div class="list-actions">
-  <button
-mat-raised-button
-color="primary"
-[disabled]="!isRequestPending()"
-(click)="approveRequest()"
->
-Approve
-</button>
-<button
-mat-raised-button
-color="warn"
-[disabled]="!isRequestPending()"
-(click)="rejectRequest()"
->
-Reject
-</button>
-
-</div> -->
+<footer style="text-align: center;">
+  &#169; B2000280 & B2001114
+</footer>

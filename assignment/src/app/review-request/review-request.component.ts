@@ -31,7 +31,7 @@ export class ReviewRequestComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result =>{
       if(result=='true'){
-        alert("Request has been updated!")
+        alert("Request status has been updated to approve!")
     
         this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'approved', this.commentText);
       }
@@ -41,8 +41,14 @@ export class ReviewRequestComponent implements OnInit {
   }
   
   rejectRequest() {
-    alert("Request has been updated!")
-    this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'rejected', this.commentText);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,{data:{title:"Confirmation",message:"Are you sure you want to reject this request?"}});
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result=='true'){
+        alert("Request status has been updated to reject!")
+      this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'rejected', this.commentText);
+      }
+    })
+    
   }
 }
   // approveRequest() {

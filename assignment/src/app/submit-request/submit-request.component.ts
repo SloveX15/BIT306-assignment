@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Request } from '../models/Request.model';
+import { Employee } from '../models/Employee.model';
 import { submitRequestServices } from '../services/request.service';
+import { registerEmployeeServices } from '../services/register-employee.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,11 +12,14 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./submit-request.component.css']
 })
 export class SubmitRequestComponent implements OnInit {
+  requests: Request [] = [];
+  employee!:Employee;
+  employeeID! :string;
   workTypes = ['flexi-hour', 'work-from-home', 'hybrid'];
   selectedWorkType: string = '';
   description: string = '';
   reason: string = '';
-  requestId: number = Math.floor(Math.random() * 1000) + 1;
+  requestId: number =  1;
   requestDate: string = new Date().toISOString();
     
   // Set status to 'pending'
@@ -22,17 +27,26 @@ export class SubmitRequestComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public submitRequestService: submitRequestServices
+    public submitRequestService: submitRequestServices,
+    public employeeService: registerEmployeeServices
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void 
+  {
+    this.employee = this.employeeService.currentEmployee();
+    this.employeeID = this.employee.employeeId;
+    this.requests = this.submitRequestService.getRequests();
+  }
+
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
+      alert('Please fill out all required fields.');
       return;
     }
   
-    const requestId = Math.floor(Math.random() * 1000) + 1;
+  
+    const requestId = this.requests.length+1;
     const requestDate = new Date();
     const workType = form.value.workType;
     const description = form.value.description;
@@ -47,10 +61,10 @@ export class SubmitRequestComponent implements OnInit {
       reason,
       status,
       '',
-      ''
+      this.employeeID
     );
     alert("Request have been submitted")
     // navigate to requests page
-    this.router.navigate(['/review-request']);
+    //this.router.navigate(['/review-request']);
   }
 }

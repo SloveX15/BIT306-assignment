@@ -19,7 +19,7 @@ export class AdminHomepageComponent implements OnInit{
   
 
   ngOnInit() {
-    this.empList = this.employeeService.getEmployee();
+    this.empList = this.employeeService.getEmployees();
     
   }
 

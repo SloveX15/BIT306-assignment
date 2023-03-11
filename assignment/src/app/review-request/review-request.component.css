@@ -251,3 +251,15 @@ a:not(.btn-nav):hover {
 .list-actions button {
   margin-top: 10px; /* adjust the value as needed */
 }
+
+/*----------Footer---------*/
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: #00A3FF;
+  color: white;
+  clear: both;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}

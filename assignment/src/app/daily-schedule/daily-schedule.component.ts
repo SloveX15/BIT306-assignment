@@ -12,7 +12,7 @@ import { registerEmployeeServices } from '../services/register-employee.service'
 })
 export class DailyScheduleComponent implements OnInit{
   employee!:Employee;
-  employeeID :string = this.employee.employeeId;
+  employeeID! :string;
   showForm! : boolean;
   selectedDate!:Date;
   dailySchedules : DailySchedule []=[];
@@ -37,6 +37,7 @@ export class DailyScheduleComponent implements OnInit{
   ngOnInit(): void {
     this.dailySchedules = this.dailyScheduleService.getDShedule();
     this.employee = this.employeeService.currentEmployee();
+    this.employeeID = this.employee.employeeId;
   }
 
   onDateSelected() {

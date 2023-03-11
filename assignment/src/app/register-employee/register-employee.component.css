@@ -10,6 +10,7 @@ body {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    margin-bottom: 20px;
   }
   
   h2 {
@@ -221,4 +222,20 @@ a:not(.btn-nav):hover {
   100% {
     padding-right: 5em;
   }
+}
+
+/*----------Footer---------*/
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: #00A3FF;
+  color: white;
+  clear: both;
+  bottom: 0;
+  position: relative;
+  width: 100%;
+}
+
+.invalid-field {
+  border-color: red;
 }
