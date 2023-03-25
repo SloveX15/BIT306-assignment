@@ -7,10 +7,10 @@ export class AdminLoginService {
   constructor() { }
 
   private admins: Admin[] = [
-    { username: 'a', password: 'p', fullname: 'Alice', userType: 'HR' },
-    { username: 'b', password: 'p', fullname: 'Zara', userType: 'HR' },
-    { username: 'c', password: 'p', fullname: 'John', userType: 'Employee' },
-    { username: 'd', password: 'p', fullname: 'Mary', userType: 'Supervisor' }
+    { username: 'admin', password: 'p123', fullname: 'Alice', userType: 'HR' },
+    { username: 'b', password: 'p123', fullname: 'Zara', userType: 'HR' },
+    { username: 'E001', password: 'p123', fullname: 'John', userType: 'Employee' },
+    { username: 'E002', password: 'p123', fullname: 'Mary', userType: 'Supervisor' }
   ];
 
   private loggedInAdmin: Admin | undefined;

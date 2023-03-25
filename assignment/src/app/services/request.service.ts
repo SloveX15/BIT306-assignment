@@ -13,7 +13,7 @@ export class submitRequestServices {
     reason: 'Reason 1',
     status: 'pending',
     comment: '',
-    employeeID: "EMP101"
+    employeeID: "E001"
     },
     {
     requestId: "2",
@@ -23,7 +23,7 @@ export class submitRequestServices {
     reason: 'Reason 2',
     status: 'approved',
     comment:'',
-    employeeID: "EMP102"
+    employeeID: "E002"
     }];
 
   //onstructor(private authService: AuthService) {}

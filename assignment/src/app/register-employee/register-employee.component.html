@@ -8,7 +8,7 @@
     <div class="nav right">
       <a href="admin-homepage" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home Page</span></span></a>
       <a href="" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
-      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
+      <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
       
       <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
@@ -56,7 +56,7 @@
     <br>
     <label>
       Supervisor ID:
-      <input id="supervisorID" type="text" [(ngModel)]="supervisorID" name="supervisorID" [disabled]="position === '1'" required>
+      <input id="supervisorID" type="text" [(ngModel)]="supervisorID" name="supervisorID" [disabled]="position === 'Supervisor'" required>
     </label>
     <br>
     

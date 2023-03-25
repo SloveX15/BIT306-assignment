@@ -205,3 +205,16 @@ footer {
   position: fixed;
   width: 100%;
 }
+/*----------Password---------*/
+
+i.far.fa-eye {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+i.far.fa-eye:hover {
+  color: #3366cc;
+}
+

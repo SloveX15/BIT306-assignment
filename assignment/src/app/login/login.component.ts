@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   password = '';
   error = false;
 
+
+ 
   constructor(private loginService: AdminLoginService, private router: Router,private employeeService:registerEmployeeServices) { }
 
   ngOnInit(): void {
@@ -40,8 +42,9 @@ export class LoginComponent implements OnInit {
       alert('Invalid username or password. Please enter valid credentials.');
     }
   }
-
 }
+
+
  // if (this.username === 'admin' && this.password === 'admin123') {
     //   // Navigate to the home page or do something else on successful login
     //   console.log('Login successful');

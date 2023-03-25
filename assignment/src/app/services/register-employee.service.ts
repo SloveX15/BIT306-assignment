@@ -6,9 +6,10 @@ import { Department } from "../models/Department.model";
 
 export class registerEmployeeServices{
     private empList : Employee  [] = [
-        { employeeId: "a",password:"", name: 'John Smith',position:"", email:"", FWAstatus:"new", supervisorID:"S1001",department: { deptID: '1', deptName: 'Sales' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "b",password:"", name: 'Jane Doe',position:"",email:"",FWAstatus:"new", supervisorID:"S1001",department: { deptID: '2', deptName: 'Marketing' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "c",password:"", name: 'Bob Johnson', position:"",email:"",FWAstatus:"new",supervisorID:"S1001",department: { deptID: '3', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
+        { employeeId: "E001",password:"", name: 'John Smith',position:"employee", email:"johm@gmail.com", FWAstatus:"new", supervisorID:"S1001",department: { deptID: 'IT', deptName: 'Sales' ,flexiHours:0,workFromHome:0,hybrid:0} },
+        { employeeId: "E002",password:"", name: 'Jane Doe',position:"employee",email:"jane@gmail.com",FWAstatus:"new", supervisorID:"S1001",department: { deptID: 'IT', deptName: 'Marketing' ,flexiHours:0,workFromHome:0,hybrid:0} },
+        { employeeId: "E003",password:"", name: 'Bob Johnson', position:"supervisor",email:"bob@gmail.com",FWAstatus:"new",supervisorID:"S1001",department: { deptID: 'MKT', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
+        { employeeId: "E004",password:"", name: 'Megan Chris', position:"supervisor",email:"megan@gmail.com",FWAstatus:"new",supervisorID:"S1001",department: { deptID: 'MKT', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
       ];
 
     

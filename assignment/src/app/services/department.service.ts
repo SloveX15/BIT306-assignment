@@ -9,8 +9,8 @@ export class DepartmentService {
   constructor() { }
 
   private departments: Department[] = [
-    {deptID: 'IT', deptName: ' IT',flexiHours:0,workFromHome:0,hybrid:0},
-    {deptID: 'MKT', deptName: 'Marketing',flexiHours:0,workFromHome:0,hybrid:0},
+    {deptID: 'IT', deptName: ' IT',flexiHours:2,workFromHome:0,hybrid:0},
+    {deptID: 'MKT', deptName: 'Marketing',flexiHours:0,workFromHome:0,hybrid:1},
     {deptID: 'SLS', deptName: 'Sales',flexiHours:0,workFromHome:0,hybrid:0},
     {deptID: 'DSG', deptName: 'Design',flexiHours:0,workFromHome:0,hybrid:0},
     {deptID: 'OP', deptName: 'Operation',flexiHours:0,workFromHome:0,hybrid:0},
