@@ -35,13 +35,6 @@
       <p>Working Hours :{{ ds.workHours }}</p>
       <p>Date :{{ ds.date }}</p>
       <p>supervisorComments :{{ds.comment}}</p>
-      <div *ngIf="isEditing && ds.isEditMode">
-        <mat-form-field>
-          <textarea matInput name="supervisorComments" placeholder="Enter supervisor comments" [(ngModel)]="ds.comment"></textarea>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="onSaveSupervisorComments(ds)">Save</button>
-      </div>
-      <button mat-raised-button color="primary" *ngIf="!isEditing && !ds.isEditMode" (click)="ds.isEditMode = true; isEditing = true;">Edit</button>
     </mat-expansion-panel>
   </mat-accordion>
 

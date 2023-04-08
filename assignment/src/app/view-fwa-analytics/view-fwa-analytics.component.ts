@@ -9,12 +9,15 @@ import { registerEmployeeServices } from '../services/register-employee.service'
 import { Employee } from '../models/Employee.model';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-view-fwa-analytics',
   templateUrl: './view-fwa-analytics.component.html',
   styleUrls: ['./view-fwa-analytics.component.css']
 })
 export class ViewFWAAnalyticsComponent implements OnInit{
+  employeePosition!:string;
+  employee!:Employee;
   selectedDepartment!: string;
   startDate!: Date;
   endDate!: Date;
@@ -28,7 +31,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   departmentData: Department[] = [];
   fwaData: Request[] = [];
   filteredScheduleData: DailySchedule[]=[];
-  scheduleData: DailySchedule[] = [];
+  dailySchedules: DailySchedule[] = [];
 
   constructor(public dailyScheduleService: DailyScheduleServices,
     public departmentService:DepartmentService,
@@ -41,12 +44,14 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   ngOnInit(): void {
     this.employeeData = this.employeeService.getEmployees();
     this.fwaData = this.fwaRequestService.getRequests();
-    this.scheduleData = this.dailyScheduleService.getDShedule();
+    this.dailyScheduleService.getDShedule();
     this.departmentData = this.departmentService.getDepartments();
+    this.employee = this.employeeService.currentEmployee();
+    this.employeePosition = this.employee.position;
   }
 
   viewSchedule() {
-    this.filteredScheduleData = this.scheduleData.filter(schedule => {
+    this.filteredScheduleData = this.dailySchedules.filter(schedule => {
       // Check if the schedule employee is in the filteredEmployees array
       let employee = this.filteredEmployees.find(emp => emp.employeeId === schedule.employeeId);
       if (employee) {

@@ -20,7 +20,8 @@ export class DailyScheduleComponent implements OnInit{
   @ViewChild('postForm', { static: false, read: NgForm }) form!: NgForm;
 
   constructor(public dailyScheduleService : DailyScheduleServices,
-    public employeeService: registerEmployeeServices){
+    public employeeService: registerEmployeeServices,
+    ){
 
   }
 
@@ -35,7 +36,7 @@ export class DailyScheduleComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.dailySchedules = this.dailyScheduleService.getDShedule();
+     this.dailyScheduleService.getDShedule();
     this.employee = this.employeeService.currentEmployee();
     this.employeeID = this.employee.employeeId;
   }
@@ -56,7 +57,6 @@ export class DailyScheduleComponent implements OnInit{
         this.showForm = true;
       });
     }
-    this.form.reset();
     this.showForm = true;
   }
 }

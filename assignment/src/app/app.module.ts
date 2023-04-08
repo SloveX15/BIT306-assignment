@@ -28,7 +28,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ViewFWAAnalyticsComponent } from './view-fwa-analytics/view-fwa-analytics.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { OwnScheduleComponent } from './own-schedule/own-schedule.component';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register-employee', component: RegisterEmployeeComponent },
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: 'admin-homepage', component: AdminHomepageComponent},
   { path: 'update', component: DailyScheduleComponent},
   { path: 'review', component: ReviewEmployeeSchedulesComponent},
-  { path: 'fwaAnalytics', component: ViewFWAAnalyticsComponent}
+  { path: 'fwaAnalytics', component: ViewFWAAnalyticsComponent},
+  { path: 'ownSchedule', component: OwnScheduleComponent},
 ]
 
 @NgModule({
@@ -51,9 +53,10 @@ const routes: Routes = [
     ConfirmDialogComponent,
     DailyScheduleComponent,
     ReviewEmployeeSchedulesComponent,
-    ViewFWAAnalyticsComponent
-    
-    
+    ViewFWAAnalyticsComponent,
+    OwnScheduleComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatSelectModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

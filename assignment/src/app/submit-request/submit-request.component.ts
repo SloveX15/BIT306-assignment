@@ -21,7 +21,7 @@ export class SubmitRequestComponent implements OnInit {
   reason: string = '';
   requestId: number =  1;
   requestDate: string = new Date().toISOString();
-    
+
   // Set status to 'pending'
   status: string = 'pending';
 
@@ -31,7 +31,7 @@ export class SubmitRequestComponent implements OnInit {
     public employeeService: registerEmployeeServices
   ) { }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.employee = this.employeeService.currentEmployee();
     this.employeeID = this.employee.employeeId;
@@ -44,15 +44,15 @@ export class SubmitRequestComponent implements OnInit {
       alert('Please fill out all required fields.');
       return;
     }
-  
-  
+
+
     const requestId = this.requests.length+1;
     const requestDate = new Date();
     const workType = form.value.workType;
     const description = form.value.description;
     const reason = form.value.reason;
     const status = 'pending';
-  
+
     this.submitRequestService.addRequest(
       requestId.toString(),
       requestDate,

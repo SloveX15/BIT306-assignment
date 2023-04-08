@@ -2,8 +2,8 @@
 <br>
 <br>
 <br>
-<header id="nav-wrapper" >
-  <!-- <nav id="nav">
+<header id="nav-wrapper" *ngIf="employeePosition == 'supervisor'">
+  <nav id="nav">
     <div class="nav left">
       <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
@@ -11,11 +11,14 @@
     <div class="nav right">
       <a href="review-request" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
       <a href="fwaAnalytics" class="nav-link active"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-      
+
       <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
       <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
-  </nav> -->
+  </nav>
+</header>
+
+<header id="nav-wrapper" *ngIf="employeePosition != 'supervisor'&& employeePosition != 'employee'">
   <nav id="nav">
     <div class="nav left">
       <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
@@ -23,16 +26,18 @@
     </div>
     <div class="nav right">
       <a href="admin-homepage" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home Page</span></span></a>
+      <a href="register-employee" class="nav-link"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
       <a href="" class="nav-link active"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-      <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
-      
+
       <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
+
+
 <mat-card>
   <h2 class="info-text" style="font-size: 50px;">View FWA Analytics</h2>
-  <div class="container" *ngIf="scheduleData.length > 0 && !showDetails">
+  <div class="container" *ngIf="dailySchedules.length > 0 && !showDetails">
     <h3>FWA status for each department:</h3>
     <table>
       <thead>
@@ -55,7 +60,7 @@
   </div>
   <br>
   <!-- Select department -->
-  <div class="container" *ngIf="scheduleData.length > 0 && !showDetails">
+  <div class="container" *ngIf="dailySchedules.length > 0 && !showDetails">
     <mat-form-field style="width: 250px;">
       <mat-label>Select Department:</mat-label>
       <mat-select [(ngModel)]="selectedDepartment">
@@ -135,7 +140,7 @@
   <br>
 
 
-  <p class="info-text mat-body-1" *ngIf="scheduleData.length == 0">No Schedule added yet </p>
+  <p class="info-text mat-body-1" *ngIf="dailySchedules.length == 0">No Schedule added yet </p>
 </mat-card>
 
 <footer style="text-align: center;">
