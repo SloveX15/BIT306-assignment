@@ -4,6 +4,7 @@ import { DailyScheduleServices } from '../services/daily_schedule.service';
 import { DailySchedule } from '../models/daily_schedule.model';
 import { Employee } from '../models/Employee.model';
 import { registerEmployeeServices } from '../services/register-employee.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-daily-schedule',
@@ -17,6 +18,7 @@ export class DailyScheduleComponent implements OnInit{
   selectedDate!:Date;
   dailySchedules : DailySchedule []=[];
   selectedSchedule: DailySchedule | null = null;
+  private dSchedulesSub! : Subscription;
   @ViewChild('postForm', { static: false, read: NgForm }) form!: NgForm;
 
   constructor(public dailyScheduleService : DailyScheduleServices,
@@ -36,16 +38,21 @@ export class DailyScheduleComponent implements OnInit{
   }
 
   ngOnInit(): void {
-     this.dailyScheduleService.getDShedule();
+    this.dailyScheduleService.getDShedule();
+    this.dSchedulesSub = this.dailyScheduleService.getDSchedulesUpdateListener()
+      .subscribe((dSchedules:DailySchedule[])=> {
+        this.dailySchedules = dSchedules;
+      });
     this.employee = this.employeeService.currentEmployee();
     this.employeeID = this.employee.employeeId;
   }
 
   onDateSelected() {
-    const matchingSchedule = this.dailySchedules.find(schedule =>
-      schedule.date.toDateString() === this.selectedDate.toDateString() &&
+    const matchingSchedule = this.dailySchedules.find(schedule =>{
+      const scheduleDate = new Date(schedule.date);
+      scheduleDate.toDateString() === this.selectedDate.toDateString() &&
       schedule.employeeId === this.employeeID
-    );
+  });
     if (matchingSchedule) {
       setTimeout(() => {
         this.form.setValue({
@@ -58,5 +65,9 @@ export class DailyScheduleComponent implements OnInit{
       });
     }
     this.showForm = true;
+  }
+
+  ngOnDestroy() {
+    this.dSchedulesSub.unsubscribe();
   }
 }
