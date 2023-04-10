@@ -11,4 +11,4 @@ const requestSchema = mongoose.Schema({
   employeeID: { type:String , requried : true}
 });
 
-module.exports = mongoose.model('Request', scheduleSchema );
+module.exports = mongoose.model('Request', requestSchema );

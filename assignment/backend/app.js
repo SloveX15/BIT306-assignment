@@ -147,7 +147,7 @@ app.put("/api/users/:id",(req, res, next)=>{
 });
 
 //for request api call
-app.post("/api/requests", (req, res, next) => {
+app.post("/api/request", (req, res, next) => {
   const dRequest = new DRequets({
     reqId : req.body.reqId,
     reqDate : req.body.reqDate,

@@ -1,36 +1,59 @@
 import { Request } from "../models/Request.model";
 import { Injectable } from '@angular/core';
 //import { AuthService } from '../auth/auth.service';
-
+import {Subject} from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import {Router} from '@angular/router';
+import {map} from 'rxjs/operators';
+import * as e from "express";
 @Injectable({providedIn: 'root'})
 
 export class submitRequestServices {
-  private requests: Request[] = [{
-    requestId: "1",
-    requestDate: new Date('2023-02-25'),
-    workType: 'Type 1',
-    description: 'Description 1',
-    reason: 'Reason 1',
-    status: 'pending',
-    comment: '',
-    employeeID: "E001"
-    },
-    {
-    requestId: "2",
-    requestDate: new Date('2023-02-24'),
-    workType: 'Type 2',
-    description: 'Description 2',
-    reason: 'Reason 2',
-    status: 'approved',
-    comment:'',
-    employeeID: "E002"
-    }];
-
-  //onstructor(private authService: AuthService) {}
-
+  private dRequests: Request[] = [];
+  private reqUpdated = new Subject<Request[]>();
+  constructor(private http:HttpClient, private router : Router){}
+  
   getRequests() {
-    return this.requests;
+    this.http.get<{ message: String, request: any }>('http://localhost:3001/api/request')
+    .pipe(map((dRequestData)=>{
+      console.log(dRequestData);
+      if(dRequestData.request){
+        return dRequestData.request.map((dRequests: { _id: any; requestId: any; requestDate: any;
+           workType: any; description: any; reason: any; 
+          status: any; comment: any; employeeId: any; })=>{
+          return{
+            _id: dRequests._id,
+            reqId : dRequests.requestId,
+          reqDate : dRequests.requestDate,
+          workType : dRequests.workType,
+          description : dRequests.description,
+          reason : dRequests.reason,
+          status : dRequests.status,
+          comment :dRequests.comment,
+          employeeId : dRequests.employeeId,
+            
+          }
+        });
+      }else{
+        return [];
+      }
+    }))
+    .subscribe(transformedRequest => {
+      console.log('Response:', transformedRequest);
+      this.dRequests = transformedRequest;
+      this.reqUpdated.next([...this.dRequests]);
+      console.log(this.dRequests);
+    },
+    error => {
+        console.log('Error:', error);
+    }
+  );
   }
+
+  getDRequestUpdateListener(){
+    return this.reqUpdated.asObservable();
+  }
+
 
   addRequest(
     requestId: string,
@@ -45,7 +68,8 @@ export class submitRequestServices {
     // Get the current user's employee ID
     //const employeeID = this.authService.getCurrentUser().employeeID;
 
-    const request: Request = {
+    const dRequest: Request = {
+      _id:'null',
       requestId: requestId,
       requestDate: requestDate,
       workType: workType,
@@ -55,15 +79,27 @@ export class submitRequestServices {
       comment: comment,
       employeeID: employeeID
     };
-    this.requests.push(request);
+    this.http.post<{message:string,dRequestId: string}>('http://localhost:3001/api/request',dRequest)
+      .subscribe((responseData)=>{
+        // console.log(responseData.message);
+        const id = responseData.dRequestId;
+        dRequest._id = id;
+        this.dRequests.push(dRequest);
+        this.reqUpdated.next([...this.dRequests]);
+        this.router.navigate(['/']);
+        console.log("Daily Schedule added sucessfulyy " ,dRequest);
+      })
+    
+    this.dRequests.push(dRequest);
   }
 
-  updateRequest(requestId: string, newStatus: string, newCommnet:string) {
-    const index = this.requests.findIndex(request => request.requestId === requestId);
-    if (index !== -1) {
-      this.requests[index].status = newStatus;
-      this.requests[index].comment = newCommnet;
-    }
+  updateRequest(id:string, requestId: string, newStatus: string, newCommnet:string, reqDate:Date, 
+    workType:string, description: string, reason:string, employeeID:string) {
+    const request : Request = {_id:id, requestId: requestId, status: newStatus,
+       comment:newCommnet, requestDate:reqDate, workType:workType, description:description,
+      reason:reason, employeeID:employeeID};
+    this.http.put('http://localhost:3001/api/request/' + id , request)
+    .subscribe(response => console.log (response));
   }
 }
 

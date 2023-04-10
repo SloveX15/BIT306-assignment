@@ -5,6 +5,7 @@ import { Employee } from '../models/Employee.model';
 import { submitRequestServices } from '../services/request.service';
 import { registerEmployeeServices } from '../services/register-employee.service';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-submit-request',
@@ -25,6 +26,8 @@ export class SubmitRequestComponent implements OnInit {
   // Set status to 'pending'
   status: string = 'pending';
 
+  private requestSub! : Subscription;
+
   constructor(
     private router: Router,
     public submitRequestService: submitRequestServices,
@@ -35,7 +38,11 @@ export class SubmitRequestComponent implements OnInit {
   {
     this.employee = this.employeeService.currentEmployee();
     this.employeeID = this.employee.employeeId;
-    this.requests = this.submitRequestService.getRequests();
+    this.submitRequestService.getRequests();
+    this.requestSub = this.submitRequestService.getDRequestUpdateListener()
+      .subscribe((request:Request[])=> {
+        this.requests = request;
+      });
   }
 
 

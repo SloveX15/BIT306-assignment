@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Request } from '../models/Request.model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { submitRequestServices } from '../services/request.service';
 import { ConfirmDialogComponent } from '../templates/confirm-dialog.componenet';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +15,8 @@ export class ReviewRequestComponent implements OnInit {
   requests: Request[] = [];
   commentText: string = '';
 
-  
+  private requestSub! : Subscription;
+
   constructor(private router: Router, private submitRequestService: submitRequestServices,
     public dialog:MatDialog) { }
 
@@ -23,7 +25,11 @@ export class ReviewRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.requests = this.submitRequestService.getRequests();
+    this.submitRequestService.getRequests();
+    this.requestSub = this.submitRequestService.getDRequestUpdateListener()
+      .subscribe((request:Request[])=> {
+        this.requests = request;
+      });
   }
   
   approveRequest() {
@@ -33,7 +39,9 @@ export class ReviewRequestComponent implements OnInit {
       if(result=='true'){
         alert("Request status has been updated to approve!")
     
-        this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'approved', this.commentText);
+        this.submitRequestService.updateRequest(this.selectedRequest._id ,this.selectedRequest.requestId, 'approved', this.commentText,
+        this.selectedRequest.requestDate,this.selectedRequest.workType, this.selectedRequest.description,
+        this.selectedRequest.reason,this.selectedRequest.employeeID);
       }
     })
 
@@ -45,7 +53,9 @@ export class ReviewRequestComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result =>{
       if(result=='true'){
         alert("Request status has been updated to reject!")
-      this.submitRequestService.updateRequest(this.selectedRequest.requestId, 'rejected', this.commentText);
+      this.submitRequestService.updateRequest(this.selectedRequest._id ,this.selectedRequest.requestId, 'rejected', this.commentText,
+      this.selectedRequest.requestDate,this.selectedRequest.workType, this.selectedRequest.description,
+      this.selectedRequest.reason,this.selectedRequest.employeeID);
       }
     })
     

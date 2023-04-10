@@ -1,7 +1,7 @@
-import { Department } from '../models/Department.model';
+//import { Department } from '../models/Department.model';
 const mongoose = require ('mongoose');
 
-const scheduleSchema = mongoose.Schema({
+const usersSchema = mongoose.Schema({
   ID: {type: String,required :true},
   password:{type: String, required:true},
   name: { type:String , requried : true},
@@ -9,8 +9,8 @@ const scheduleSchema = mongoose.Schema({
   email: { type:String , requried : true},
   FWAstatus: { type:String , requried : true},
   supervisorID: {type: String,},
-  department:{type: Department, required},
+  department:{type: String, required:true},
   
 });
 
-module.exports = mongoose.model('Users', scheduleSchema );
+module.exports = mongoose.model('Users', usersSchema );
