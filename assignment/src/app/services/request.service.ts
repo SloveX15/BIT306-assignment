@@ -12,14 +12,14 @@ export class submitRequestServices {
   private dRequests: Request[] = [];
   private reqUpdated = new Subject<Request[]>();
   constructor(private http:HttpClient, private router : Router){}
-  
+
   getRequests() {
-    this.http.get<{ message: String, request: any }>('http://localhost:3001/api/request')
+    this.http.get<{ message: String, dRequests: any }>('http://localhost:3001/api/request')
     .pipe(map((dRequestData)=>{
       console.log(dRequestData);
-      if(dRequestData.request){
-        return dRequestData.request.map((dRequests: { _id: any; requestId: any; requestDate: any;
-           workType: any; description: any; reason: any; 
+      if(dRequestData.dRequests){
+        return dRequestData.dRequests.map((dRequests: { _id: any; requestId: any; requestDate: any;
+           workType: any; description: any; reason: any;
           status: any; comment: any; employeeId: any; })=>{
           return{
             _id: dRequests._id,
@@ -31,7 +31,7 @@ export class submitRequestServices {
           status : dRequests.status,
           comment :dRequests.comment,
           employeeId : dRequests.employeeId,
-            
+
           }
         });
       }else{
@@ -86,14 +86,13 @@ export class submitRequestServices {
         dRequest._id = id;
         this.dRequests.push(dRequest);
         this.reqUpdated.next([...this.dRequests]);
-        this.router.navigate(['/']);
         console.log("Daily Schedule added sucessfulyy " ,dRequest);
       })
-    
+
     this.dRequests.push(dRequest);
   }
 
-  updateRequest(id:string, requestId: string, newStatus: string, newCommnet:string, reqDate:Date, 
+  updateRequest(id:string, requestId: string, newStatus: string, newCommnet:string, reqDate:Date,
     workType:string, description: string, reason:string, employeeID:string) {
     const request : Request = {_id:id, requestId: requestId, status: newStatus,
        comment:newCommnet, requestDate:reqDate, workType:workType, description:description,

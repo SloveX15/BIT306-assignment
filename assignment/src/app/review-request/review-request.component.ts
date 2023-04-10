@@ -18,7 +18,7 @@ export class ReviewRequestComponent implements OnInit {
   private requestSub! : Subscription;
 
   constructor(private router: Router, private submitRequestService: submitRequestServices,
-    public dialog:MatDialog) { }
+    public dialog:MatDialog, ) { }
 
   onSelect(request: Request) {
     this.selectedRequest = request;
@@ -31,23 +31,23 @@ export class ReviewRequestComponent implements OnInit {
         this.requests = request;
       });
   }
-  
+
   approveRequest() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{data:{title:"Confirmation",message:"Are you sure you want to approve this request?"}});
 
     dialogRef.afterClosed().subscribe(result =>{
       if(result=='true'){
         alert("Request status has been updated to approve!")
-    
-        this.submitRequestService.updateRequest(this.selectedRequest._id ,this.selectedRequest.requestId, 'approved', this.commentText,
+
+        this.submitRequestService.updateRequest("6434257d2a26b50aa268a31c" ,this.selectedRequest.requestId, 'approved', this.commentText,
         this.selectedRequest.requestDate,this.selectedRequest.workType, this.selectedRequest.description,
         this.selectedRequest.reason,this.selectedRequest.employeeID);
       }
     })
 
-    
+
   }
-  
+
   rejectRequest() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{data:{title:"Confirmation",message:"Are you sure you want to reject this request?"}});
     dialogRef.afterClosed().subscribe(result =>{
@@ -58,7 +58,7 @@ export class ReviewRequestComponent implements OnInit {
       this.selectedRequest.reason,this.selectedRequest.employeeID);
       }
     })
-    
+
   }
 }
   // approveRequest() {
@@ -114,9 +114,9 @@ export class ReviewRequestComponent implements OnInit {
   //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
   //     data: { title, message },
   //   });
-  
+
   //   let returnValue = false;
-  
+
   //   dialogRef.afterClosed().subscribe((result) => {
   //     if (result) {
   //       if (callback) {
@@ -125,8 +125,8 @@ export class ReviewRequestComponent implements OnInit {
   //       returnValue = true;
   //     }
   //   });
-  
+
   //   return returnValue;
   // }
 
-  
+

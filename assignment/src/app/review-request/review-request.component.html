@@ -31,7 +31,7 @@
         <p>Reason: {{ request.reason }}</p>
         <p>Status: {{ request.status }}</p>
         <p>Comment: {{ request.comment }}</p>
-        
+
         <div class="list-actions">
           <label for="comment">Add Comment:</label><br>
 <textarea id="comment" name="comment" [(ngModel)]="commentText"
@@ -43,7 +43,7 @@
 <br>
 
 <button (click)="approveRequest()" [disabled]="selectedRequest.status !== 'pending'">Approve</button>
-<button style="background-color: red;" (click)="rejectRequest()" [disabled]="selectedRequest.status !== 'pending'">Reject</button> 
+<button style="background-color: red;" (click)="rejectRequest()" [disabled]="selectedRequest.status !== 'pending'">Reject</button>
 
         </div>
       </div>

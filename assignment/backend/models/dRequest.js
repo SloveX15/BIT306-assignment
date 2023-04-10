@@ -6,9 +6,9 @@ const requestSchema = mongoose.Schema({
   workType: { type:String , requried : true},
   description: { type:String , requried : true},
   reason: {type: String, required: true},
-  status: { type:String , requried : true}, 
+  status: { type:String , requried : true},
   comment: {type: String,},
-  employeeID: { type:String , requried : true}
+  employeeID: { type:String }
 });
 
 module.exports = mongoose.model('Request', requestSchema );

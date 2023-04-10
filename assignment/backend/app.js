@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const DSchedule = require('./models/dSchedule');
 const DUsers = require ('./models/dUsers');
-const DRequets = require ('./models/dRequest');
+const DRequest = require ('./models/dRequest');
 const mongoose = require('mongoose');
 
 // const bcrypt = require("bcrypt");
@@ -147,63 +147,132 @@ app.put("/api/users/:id",(req, res, next)=>{
 });
 
 //for request api call
+//for request api call
+
 app.post("/api/request", (req, res, next) => {
-  const dRequest = new DRequets({
-    reqId : req.body.reqId,
-    reqDate : req.body.reqDate,
-    workType : req.body.workType,
-    description : req.body.description,
-    reason : req.body.reason,
-    status : req.body.status,
-    comment : req.body.comment,
-    employeeId : req.body.employeeId,
+
+   const dRequest = new DRequest({
+
+   reqId : req.body.reqId,
+
+   reqDate : req.body.reqDate,
+
+   workType : req.body.workType,
+
+   description : req.body.description,
+
+   reason : req.body.reason,
+
+   comment : req.body.comment,
+
+   employeeID : req.body.employeeID,
+
+   status: req.body.status,
+
+  });
+
+  dRequest.save().then((createdRequest)=> {
+
+   res.status(201).json({
+
+   message : 'Request added successfully',
+
+   requestId : createdRequest.id
+
    });
-   dRequest.save().then((createdDRequests)=> {
-    res.status(201).json({
-      message : 'Request added successfully',
-      dRequestId : createdDRequests.id
-    });
+
+   });
+
+
+
+
   });
 
-});
 
-app.get('/api/request', (req, res, next) => {
-  DRequets.find()
-    .then((documents) => {
-      res.status(200).json({
-        message: 'Request fetched successfully',
-        request: documents,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        error: error,
-      });
-    });
-});
 
-app.put("/api/request/:id",(req, res, next)=>{
-  const request = new DRequets({
-    _id: req.body.id,
-    reqId : req.body.reqId,
-    reqDate : req.body.reqDate,
-    workType : req.body.workType,
-    description : req.body.description,
-    reason : req.body.reason,
-    status : req.body.status,
-    comment : req.body.comment,
-    employeeId : req.body.employeeId,
+
+  app.get('/api/request', (req, res, next) => {
+
+ DRequest.find()
+
+   .then((documents) => {
+
+   res.status(200).json({
+
+   message: 'Request fetched successfully',
+
+   dRequests: documents,
+
+   });
+
+   })
+
+  .catch((error) => {
+
+   console.log(error);
+
+   res.status(500).json({
+
+   error: error,
+
+   });
+
+   });
+
   });
 
-  DRequets.updateOne({_id:req.params.id} , request).then (
-  result => {
-   console.log(result);
-   res.status(200).json({message: " update successful"});
-  }
-  );
 
-});
+
+
+  app.put("/api/request/:id",(req, res, next)=>{
+
+   const r = new DRequest({
+
+   _id: req.body.id,
+
+   reqId: req.body.reqId,
+
+   reqDate: req.body.reqDate,
+
+ workType: req.body.reqDate,
+
+   description: req.body.description,
+
+   reason:req.body.reason,
+
+   status: req.body.status,
+
+   comment:req.body.comment,
+
+   employeeId: req.body.employeeId,
+
+   employeeId : req.body.employeeId,
+
+
+
+   });
+
+
+
+
+   DRequest.updateOne({_id:req.params.id} , r).then (
+
+   result => {
+
+  console.log(result);
+
+  res.status(200).json({message: " update successful"});
+
+ }
+
+ );
+
+
+
+
+  });
+
+
 
 
 
