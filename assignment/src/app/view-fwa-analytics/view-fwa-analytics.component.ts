@@ -43,7 +43,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
 
   ngOnInit(): void {
     this.employeeData = this.employeeService.getEmployees();
-    this.fwaData = this.fwaRequestService.getRequests();
+    this.fwaRequestService.getRequests();
     this.dailyScheduleService.getDShedule();
     this.departmentData = this.departmentService.getDepartments();
     this.employee = this.employeeService.currentEmployee();
