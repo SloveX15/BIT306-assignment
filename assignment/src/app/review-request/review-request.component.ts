@@ -12,8 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ReviewRequestComponent implements OnInit {
   selectedRequest!: Request;
-  requests: Request[] = [];
+  pendingRequests: Request[] = [];
   commentText: string = '';
+  
 
   private requestSub! : Subscription;
 
@@ -28,7 +29,7 @@ export class ReviewRequestComponent implements OnInit {
     this.submitRequestService.getRequests();
     this.requestSub = this.submitRequestService.getDRequestUpdateListener()
       .subscribe((request:Request[])=> {
-        this.requests = request;
+        this.pendingRequests = request.filter(request => request.status === 'pending');
       });
   }
 
