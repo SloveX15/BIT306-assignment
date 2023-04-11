@@ -28,7 +28,7 @@ export class DepartmentService {
   }
 
 
- 
+
 
   updateWorkType(deptID: string, deptName: string, flexiHours:number, workFromHome:number, hybrid:number) {
     const dIndex = this.departments.findIndex(d => d.deptID === deptID);

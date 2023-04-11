@@ -11,7 +11,7 @@ import { Employee } from '../models/Employee.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username = '';
+  employeeId = '';
   password = '';
   error = false;
 
@@ -25,22 +25,7 @@ export class LoginComponent implements OnInit {
   loginStatus = false;
 
   login(form: NgForm): void {
-    this.loginService.authenticateLogin(form.value.username, form.value.password);
-
-    if (this.loginStatus) {
-      if (this.loginService.isEmployee()) {
-        this.router.navigate(['submit-request']);
-        this.employeeService.storeCurrentEmployee(this.username);
-      } else if (this.loginService.isSupervisor()) {
-        this.router.navigate(['review-request']);
-        this.employeeService.storeCurrentEmployee(this.username);
-      } else if (this.loginService.isAdmin()) {
-        this.router.navigate(['admin-homepage']);
-        this.employeeService.storeCurrentEmployee(this.username);
-      }
-    } else {
-      alert('Invalid username or password. Please enter valid credentials.');
-    }
+    this.loginService.authenticateLogin(form.value.employeeId, form.value.password);
   }
 }
 

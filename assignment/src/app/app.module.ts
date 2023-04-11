@@ -31,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OwnScheduleComponent } from './own-schedule/own-schedule.component';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RequestHistoryComponent } from './request-history/request-history.component';
+import { AuthInterceptor } from './login/auth-interceptor';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register-employee', component: RegisterEmployeeComponent },
@@ -79,7 +80,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

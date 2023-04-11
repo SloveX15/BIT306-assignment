@@ -2,6 +2,9 @@ import { Component,OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DailyScheduleServices } from '../services/daily_schedule.service';
 import { DailySchedule } from '../models/daily_schedule.model';
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
+import { Employee } from '../models/Employee.model';
 @Component({
   selector: 'app-review-employee-schedules',
   templateUrl: './review-employee-schedules.component.html',
@@ -12,10 +15,12 @@ export class ReviewEmployeeSchedulesComponent implements OnInit{
   filteredSchedules: DailySchedule[]=[];
   dailySchedules : DailySchedule[]=[];
   isEditing: boolean = false;
+  employee!:Employee;
+  empID!:string;
 
   private dSchedulesSub! : Subscription;
 
-  constructor(public dailyScheduleService: DailyScheduleServices){
+  constructor(public dailyScheduleService: DailyScheduleServices,public route: ActivatedRoute,public authenticateService:AdminLoginService){
 
   }
 
@@ -25,6 +30,10 @@ export class ReviewEmployeeSchedulesComponent implements OnInit{
       .subscribe((dSchedules:DailySchedule[])=> {
         this.dailySchedules = dSchedules;
       });
+      this.route.params.subscribe(params => {
+        this.empID = params['employeeId'];
+        this.employee = this.authenticateService.getUser();
+      })
   }
 
   onSaveSupervisorComments(ds: DailySchedule) {

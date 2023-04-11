@@ -33,7 +33,7 @@ app.use((req, res, next) =>{
   next();
 });
 
-app.post("/api/dailySchedules",checkAuth, (req, res, next) => {
+app.post("/api/dailySchedules", (req, res, next) => {
   const dSchedule = new DSchedule({
     employeeId : req.body.employeeId,
     workLocation : req.body.workLocation,
@@ -100,19 +100,10 @@ app.post("/api/users", (req, res, next) => {
       position : req.body.position,
       email : req.body.email,
       FWAstatus : req.body.FWAstatus,
-      supervisorID : req.body.supervisorID
+      supervisorID : req.body.supervisorID,
+      deptID: req.body.deptID
     });
 
-    if (req.body.department) {
-      const department = {
-        deptID: req.body.department.deptID,
-        deptName: req.body.department.deptName,
-        flexiHours: req.body.department.flexiHours,
-        workFromHome: req.body.department.workFromHome,
-        hybrid: req.body.department.hybrid
-      };
-      users.department = department;
-    }
 
     users.save()
     .then((createdDUsers)=> {
@@ -152,7 +143,7 @@ app.get('/api/departments', (req, res, next) => {
     .then((documents) => {
       res.status(200).json({
         message: 'Department fetched successfully',
-        users: documents,
+        departments: documents,
       });
     })
     .catch((error) => {
@@ -304,9 +295,9 @@ app.post("/api/request", checkAuth,(req, res, next) => {
 
   });
 
-  app.post('/api/users', (req, res, next) => {
+  app.post('/api/users/login', (req, res, next) => {
     let fetchedUser;
-    User.findOne({employeeId: req.body.username})
+    User.findOne({employeeId: req.body.employeeId})
       .then(user => {
         if(!user){
           return res.status(401).json({
@@ -323,7 +314,7 @@ app.post("/api/request", checkAuth,(req, res, next) => {
           });
         }
         const token = jwt.sign(
-          {employeeId: fetchedUser.employeeId, id: fetchedUser._id},
+          {email: fetchedUser.email, id: fetchedUser._id},
           'secret_this_should_be_longer',
           {expiresIn: '1h'}
         );

@@ -14,6 +14,7 @@ export class AdminLoginService{
   private user!: Employee;
   private userSub! : Subscription;
   private employees: Employee[] = [];
+  private isAuthenticated! : boolean;
 
 
   constructor(public router:Router, private http: HttpClient, public employeeService:registerEmployeeServices) { }
@@ -22,43 +23,60 @@ export class AdminLoginService{
   private loggedInAdmin: Admin | undefined;
 
   authenticateLogin(employeeId: string, password: string) {
-    const authdata = {username: employeeId, password: password};
-    this.http.post<{token: string, users: any}>('http://localhost:3001/api/users', authdata)
+    const authdata = {employeeId: employeeId, password: password};
+    this.http.post<{token: string, user:any}>('http://localhost:3001/api/users/login', authdata)
       .subscribe(response => {
         const token = response.token;
         this.token = token;
-        this.authStatusListener.next(true);
+        if(token) {
+          this.isAuthenticated = true;
+          // emit new value after getting the token
+          this.authStatusListener.next(true);
 
-        this.user = {
-          id: response.users._id,
-          employeeId: response.users.employeeId,
-          password: response.users.password,
-          name: response.users.name,
-          position: response.users.position,
-          email: response.users.email,
-          FWAstatus: response.users.FWAstatus,
-          supervisorID:response.users.supervisorID,
-          deptID:response.users.deptID,
         }
+        console.log("token" , response);
+        console.log(response.user);
+        this.user = {
+          id: response.user._id,
+          employeeId: response.user.employeeId,
+          password: response.user.password,
+          name: response.user.name,
+          position: response.user.position,
+          email: response.user.email,
+          FWAstatus: response.user.FWAstatus,
+          supervisorID:response.user.supervisorID,
+          deptID:response.user.deptID,
+        }
+        console.log('this user:',this.user);
 
-        if(response.users.position == "Admin"){
+        if(response.user.position == "Admin"){
             this.router.navigate(["admin-homepage"]);
-        }else if (response.users.position == "Supervisor") {
+        }else if (response.user.position == "Supervisor") {
           this.router.navigate(["review-request"]);
         } else {
-          this.router.navigate(["schoolAdmin"]);
-        }{
-            this.router.navigate(["ownSchedule"]);
+          this.router.navigate(["ownSchedule"]);
         }
+
       });
   }
+
+  getToken(){
+    return this.token;
+  }
+
+  getUser():Employee{
+    return this.user;
+  }
+
+
 
   whoseLoggedIn(): Admin | undefined {
     return this.loggedInAdmin;
   }
 
-  logout(): void {
-    this.loggedInAdmin = undefined;
+  logout(){
+    this.authStatusListener.next(false);
+    this.token = "null";
   }
 
   isAdmin(): boolean {

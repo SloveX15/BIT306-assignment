@@ -4,7 +4,7 @@
       <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
-    
+
   </nav>
 </header>
 <br>
@@ -13,14 +13,14 @@
 <br>
 <form (submit)="login(loginForm)" #loginForm="ngForm">
   <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" [(ngModel)]="username" required>
-   
+    <label for="username">Employee ID:</label>
+    <input type="text" id="employeeId" name="employeeId" [(ngModel)]="employeeId" required>
+
   </div>
   <div>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" [(ngModel)]="password" required>
-    
+
   </div>
   <button type="submit">Login</button>
 </form>

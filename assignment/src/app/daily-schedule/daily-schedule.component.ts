@@ -5,15 +5,16 @@ import { DailySchedule } from '../models/daily_schedule.model';
 import { Employee } from '../models/Employee.model';
 import { registerEmployeeServices } from '../services/register-employee.service';
 import { Subscription } from 'rxjs';
-
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
 @Component({
   selector: 'app-daily-schedule',
   templateUrl: './daily-schedule.component.html',
   styleUrls: ['./daily-schedule.component.css']
 })
 export class DailyScheduleComponent implements OnInit{
+  empID!:string;
   employee!:Employee;
-  employeeID! :string;
   showForm! : boolean;
   selectedDate!:Date;
   dailySchedules : DailySchedule []=[];
@@ -22,7 +23,8 @@ export class DailyScheduleComponent implements OnInit{
   @ViewChild('postForm', { static: false, read: NgForm }) form!: NgForm;
 
   constructor(public dailyScheduleService : DailyScheduleServices,
-    public employeeService: registerEmployeeServices,
+    public employeeService : registerEmployeeServices,public route: ActivatedRoute,
+    public authenticateService:AdminLoginService,
     ){
 
   }
@@ -31,7 +33,7 @@ export class DailyScheduleComponent implements OnInit{
     if (form.invalid){
       return;
     }
-    this.dailyScheduleService.addDSchedule(this.employeeID, form.value.workHours,form.value.workLocation,
+    this.dailyScheduleService.addDSchedule(this.empID, form.value.workHours,form.value.workLocation,
       form.value.workReport,form.value.date,'',false);
     alert("Schedule update successfully!");
     form.reset();
@@ -43,15 +45,18 @@ export class DailyScheduleComponent implements OnInit{
       .subscribe((dSchedules:DailySchedule[])=> {
         this.dailySchedules = dSchedules;
       });
-    this.employee = this.employeeService.currentEmployee();
-    this.employeeID = this.employee.employeeId;
+      this.route.params.subscribe(params => {
+        this.empID = params['employeeId'];
+        this.employee = this.authenticateService.getUser();
+      })
   }
 
   onDateSelected() {
+    this.empID = this.employee.employeeId;
     const matchingSchedule = this.dailySchedules.find(schedule =>{
       const scheduleDate = new Date(schedule.date);
       scheduleDate.toDateString() === this.selectedDate.toDateString() &&
-      schedule.employeeId === this.employeeID
+      schedule.employeeId === this.empID
   });
     if (matchingSchedule) {
       setTimeout(() => {

@@ -4,6 +4,8 @@ import { Employee } from '../models/Employee.model';
 import { DailyScheduleServices } from '../services/daily_schedule.service';
 import { registerEmployeeServices } from '../services/register-employee.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-own-schedule',
@@ -11,6 +13,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./own-schedule.component.css']
 })
 export class OwnScheduleComponent {
+  empID!:String;
   employee!:Employee;
   selectedDate! :Date;
   filteredSchedules: DailySchedule[]=[];
@@ -18,7 +21,8 @@ export class OwnScheduleComponent {
   isEditing: boolean = false;
   private dSchedulesSub! : Subscription;
 
-  constructor(public dailyScheduleService: DailyScheduleServices,public employeeServices: registerEmployeeServices){
+  constructor(public dailyScheduleService: DailyScheduleServices,public employeeServices: registerEmployeeServices,
+    public route: ActivatedRoute,public authenticateService:AdminLoginService){
 
   }
 
@@ -28,7 +32,10 @@ export class OwnScheduleComponent {
       .subscribe((dSchedules:DailySchedule[])=> {
         this.dailySchedules = dSchedules;
       });
-    this.employee = this.employeeServices.currentEmployee();
+      this.route.params.subscribe(params => {
+        this.empID = params['employeeId'];
+        this.employee = this.authenticateService.getUser();
+      })
 
 
   }

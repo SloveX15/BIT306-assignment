@@ -8,7 +8,9 @@ import { Department } from '../models/Department.model';
 import { registerEmployeeServices } from '../services/register-employee.service';
 import { Employee } from '../models/Employee.model';
 import { Router } from '@angular/router';
-
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-view-fwa-analytics',
@@ -16,7 +18,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-fwa-analytics.component.css']
 })
 export class ViewFWAAnalyticsComponent implements OnInit{
+  private dSchedulesSub! : Subscription;
+  private requestSub! : Subscription;
+  private employeeSub!: Subscription;
+  private departmentSub!: Subscription;
   employeePosition!:string;
+  empID!:string;
   employee!:Employee;
   selectedDepartment!: string;
   startDate!: Date;
@@ -37,17 +44,35 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     public departmentService:DepartmentService,
     public fwaRequestService:submitRequestServices,
     public employeeService:registerEmployeeServices,
-    private router:Router){
+    private router:Router,
+    public route: ActivatedRoute,
+    public authenticateService:AdminLoginService,){
 
   }
 
   ngOnInit(): void {
-    this.employeeData = this.employeeService.getEmployees();
+    this.employeeService.getEmployees();
+    this.employeeSub = this.employeeService.getEmpListUpdateListener()
+      .subscribe((emp:Employee[])=> {
+        this.employeeData = emp;
+      });
     this.fwaRequestService.getRequests();
+    this.requestSub = this.fwaRequestService.getDRequestUpdateListener()
+      .subscribe((request:Request[])=> {
+        this.fwaData = request;
+      });
     this.dailyScheduleService.getDShedule();
+    this.dSchedulesSub = this.dailyScheduleService.getDSchedulesUpdateListener()
+      .subscribe((dSchedules:DailySchedule[])=> {
+        this.dailySchedules = dSchedules;
+      });
+    this.route.params.subscribe(params => {
+      this.empID = params['employeeId'];
+      this.employee = this.authenticateService.getUser();
+      this.employeePosition = this.authenticateService.getUser().position;
+      })
+    this.employeePosition = this.authenticateService.getUser().position;
     this.departmentData = this.departmentService.getDepartments();
-    this.employee = this.employeeService.currentEmployee();
-    this.employeePosition = this.employee.position;
   }
 
   viewSchedule() {
