@@ -1,6 +1,6 @@
 const mongoose = require ('mongoose');
 
-const requestSchema = mongoose.Schema({
+const deptSchema = mongoose.Schema({
   deptId: {type: String,},
   deptName: { type:String , requried : true},
   flexiHours: { type:String , requried : true},
@@ -8,4 +8,4 @@ const requestSchema = mongoose.Schema({
   hybrid: { type:String , requried : true},
 });
 
-module.exports = mongoose.model('Request', scheduleSchema );
+module.exports = mongoose.model('Department', deptSchema );

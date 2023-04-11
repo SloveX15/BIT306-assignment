@@ -8,7 +8,7 @@ const Ddepartment = require('./models/dDepartment');
 const mongoose = require('mongoose');
 
 const bcrypt = require("bcrypt");
-const dDepartment = require('./models/dDepartment');
+
 // const User = require('./models/user');
 const jwt = require('jsonwebtoken');
 
@@ -110,7 +110,7 @@ app.post("/api/users", checkAuth,(req, res, next) => {
         hybrid: req.body.department.hybrid
       } 
      });
-     DUsers.save().then((createdDUsers)=> {
+     users.save().then((createdDUsers)=> {
       res.status(201).json({
         message : 'Users registered successfully',
         dUsersId : createdDUsers.id

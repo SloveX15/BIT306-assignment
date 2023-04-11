@@ -9,12 +9,7 @@ const usersSchema = mongoose.Schema({
   email: { type:String , requried : true},
   FWAstatus: { type:String , requried : true},
   supervisorID: {type: String,},
-  department:{
-    deptID: String,
-    deptName: String,
-    flexiHours: Number,
-    workFromHome: Number,
-    hybrid: Number, },
+  deptID:{ type: String, },
   
 });
 
