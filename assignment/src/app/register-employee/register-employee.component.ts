@@ -22,7 +22,8 @@ import { Subscription } from 'rxjs';
   email!: string;
   FWAstatus!: string;
   supervisorID!: string;
-  department!: Department;
+
+  department!: string;
 
   //empList : Employee []=[];
   private employeeSub! : Subscription;
@@ -46,11 +47,11 @@ import { Subscription } from 'rxjs';
       email: this.email,
       FWAstatus: this.FWAstatus,
       supervisorID:this.supervisorID,
-      department: this.departmentService.getDepartmentID(this.selectedDepartment)
+      deptID: this.selectedDepartment
     };
     this.registerEmployeeServices.addEmployee(newEmployee.id,newEmployee.employeeId, newEmployee.password,
       newEmployee.name, newEmployee.position, newEmployee.email, newEmployee.FWAstatus, newEmployee.supervisorID,
-       newEmployee.department);
+       newEmployee.deptID);
 
        alert("Employee registered successfully!");
     this.router.navigate(['admin-homepage']);
@@ -62,6 +63,10 @@ import { Subscription } from 'rxjs';
     departments : Department[] =[];
 
 
+    checkSupervisorID(supervisorID: string): boolean {
+      const employees = this.registerEmployeeServices.getEmployees();
+      return employees.some((employee) => employee.employeeId === supervisorID && employee.position === 'Supervisor');
+    }
 
 
 

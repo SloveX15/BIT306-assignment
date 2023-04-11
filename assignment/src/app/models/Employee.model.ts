@@ -9,5 +9,5 @@ export interface Employee {
     email: string;
     FWAstatus: string;
     supervisorID:string;
-    department:Department;
+    deptID:string;
    }

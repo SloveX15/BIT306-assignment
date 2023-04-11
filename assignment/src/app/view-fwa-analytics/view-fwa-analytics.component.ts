@@ -75,7 +75,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     const selectedDept = this.departmentData.find(dept => dept.deptID === this.selectedDepartment);
 
     // Filter the employees by the selected department
-    this.filteredEmployees = this.employeeData.filter(emp => emp.department.deptID === selectedDept?.deptID);
+    this.filteredEmployees = this.employeeData.filter(emp => emp.deptID === selectedDept?.deptID);
 
     // Iterate through the FWARequest array
     for (let fwaRequest of this.fwaData) {

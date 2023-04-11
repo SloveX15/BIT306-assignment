@@ -38,7 +38,7 @@ export class AdminLoginService{
           email: response.users.email,
           FWAstatus: response.users.FWAstatus,
           supervisorID:response.users.supervisorID,
-          department:response.users.department,
+          deptID:response.users.deptID,
         }
 
         if(response.users.position == "Admin"){

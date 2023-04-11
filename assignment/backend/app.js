@@ -8,7 +8,7 @@ const Ddepartment = require('./models/dDepartment');
 const mongoose = require('mongoose');
 
 const bcrypt = require("bcrypt");
-const dDepartment = require('./models/dDepartment');
+
 // const User = require('./models/user');
 const jwt = require('jsonwebtoken');
 
