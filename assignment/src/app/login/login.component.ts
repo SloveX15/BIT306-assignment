@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   loginStatus = false;
 
   login(form: NgForm): void {
-    this.loginStatus = this.loginService.authenticateLogin(form.value.username, form.value.password);
+    this.loginService.authenticateLogin(form.value.username, form.value.password);
 
     if (this.loginStatus) {
       if (this.loginService.isEmployee()) {

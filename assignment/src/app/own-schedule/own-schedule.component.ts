@@ -11,13 +11,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./own-schedule.component.css']
 })
 export class OwnScheduleComponent {
+  employee!:Employee;
   selectedDate! :Date;
   filteredSchedules: DailySchedule[]=[];
   dailySchedules : DailySchedule[]=[];
   isEditing: boolean = false;
   private dSchedulesSub! : Subscription;
 
-  constructor(public dailyScheduleService: DailyScheduleServices){
+  constructor(public dailyScheduleService: DailyScheduleServices,public employeeServices: registerEmployeeServices){
 
   }
 
@@ -27,7 +28,9 @@ export class OwnScheduleComponent {
       .subscribe((dSchedules:DailySchedule[])=> {
         this.dailySchedules = dSchedules;
       });
-    
+    this.employee = this.employeeServices.currentEmployee();
+
+
   }
 
 
@@ -35,7 +38,8 @@ export class OwnScheduleComponent {
     if (this.selectedDate) {
       this.filteredSchedules = this.dailySchedules.filter(schedule => {
         const scheduleDate = new Date(schedule.date);
-        return scheduleDate.toDateString() === this.selectedDate.toDateString();
+        return scheduleDate.toDateString() === this.selectedDate.toDateString()
+        && this.employee.employeeId === schedule.employeeId;
       });
     }
   }

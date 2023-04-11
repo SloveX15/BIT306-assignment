@@ -2,7 +2,7 @@ const express = require('express')
 
 const bodyParser = require('body-parser');
 const DSchedule = require('./models/dSchedule');
-const DUsers = require ('./models/dUsers');
+const User = require ('./models/dUsers');
 const DRequest = require ('./models/dRequest');
 const Ddepartment = require('./models/dDepartment');
 const mongoose = require('mongoose');
@@ -10,9 +10,9 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const dDepartment = require('./models/dDepartment');
 // const User = require('./models/user');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-// const checkAuth = require('./middleware/check-auth');
+const checkAuth = require('./middleware/check-auth');
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.use((req, res, next) =>{
   next();
 });
 
-app.post("/api/dailySchedules", (req, res, next) => {
+app.post("/api/dailySchedules",checkAuth, (req, res, next) => {
   const dSchedule = new DSchedule({
     employeeId : req.body.employeeId,
     workLocation : req.body.workLocation,
@@ -68,7 +68,7 @@ app.get('/api/dailySchedules', (req, res, next) => {
     });
 });
 
-app.put("/api/dailySchedules/:id",(req, res, next)=>{
+app.put("/api/dailySchedules/:id",checkAuth,(req, res, next)=>{
   const ds = new DSchedule({
     _id: req.body.id,
     employeeId : req.body.employeeId,
@@ -90,7 +90,7 @@ app.put("/api/dailySchedules/:id",(req, res, next)=>{
 });
 
 //for users api call
-app.post("/api/users", (req, res, next) => {
+app.post("/api/users", checkAuth,(req, res, next) => {
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
     const users = new DUsers({
@@ -122,12 +122,10 @@ app.post("/api/users", (req, res, next) => {
       });
     });
   });
- 
-
 });
 
 app.get('/api/users', (req, res, next) => {
-  DUsers.find()
+  User.find()
     .then((documents) => {
       res.status(200).json({
         message: 'Users fetched successfully',
@@ -157,11 +155,32 @@ app.get('/api/departments', (req, res, next) => {
         error: error,
       });
     });
+  });
+app.put("/api/users/:id",checkAuth,(req, res, next)=>{
+  const users = new DUsers({
+    _id: req.body.id,
+    employeeId: req.body.employeeId,
+    password : req.body.password,
+    name : req.body.name,
+    position : req.body.position,
+    email : req.body.email,
+    FWAstatus : req.body.FWAstatus,
+    supervisorID: req.body.supervisorID,
+    department: req.body.department,
+  });
+
+  DUsers.updateOne({ID:req.params.ID} , users).then (
+  result => {
+   console.log(result);
+   res.status(200).json({message: " user details update successful"});
+  }
+  );
+
 });
 //for request api call
 
 
-app.post("/api/request", (req, res, next) => {
+app.post("/api/request", checkAuth,(req, res, next) => {
 
    const dRequest = new DRequest({
 
@@ -234,7 +253,7 @@ app.post("/api/request", (req, res, next) => {
 
 
 
-  app.put("/api/request/:id",(req, res, next)=>{
+  app.put("/api/request/:id",checkAuth,(req, res, next)=>{
 
    const r = new DRequest({
 
@@ -279,7 +298,40 @@ app.post("/api/request", (req, res, next) => {
 
   });
 
-
+  app.post('/api/users', (req, res, next) => {
+    let fetchedUser;
+    User.findOne({employeeId: req.body.employeeId})
+      .then(user => {
+        if(!user){
+          return res.status(401).json({
+            message: 'Auth failed'
+          });
+        }
+        fetchedUser = user;
+        return bcrypt.compare(req.body.password, user.password);
+      })
+      .then(result => {
+        if(!result){
+          return res.status(401).json({
+            message: 'Auth failed'
+          });
+        }
+        const token = jwt.sign(
+          {employeeId: fetchedUser.employeeId, id: fetchedUser._id},
+          'secret_this_should_be_longer',
+          {expiresIn: '1h'}
+        );
+        res.status(200).json({
+         token: token,
+         user: fetchedUser
+        });
+      })
+      .catch(err => {
+        return res.status(401).json({
+          message:  'Auth failed'
+        })
+      })
+  })
 
 
 

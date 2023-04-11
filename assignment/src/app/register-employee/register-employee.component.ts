@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
 })
   export class RegisterEmployeeComponent implements OnInit{
     employeeID!: string;
-    
     employeeName!: string;
   position!: string;
   email!: string;
@@ -49,22 +48,22 @@ import { Subscription } from 'rxjs';
       supervisorID:this.supervisorID,
       department: this.departmentService.getDepartmentID(this.selectedDepartment)
     };
-    this.registerEmployeeServices.addEmployee(newEmployee.employeeId, newEmployee.password, 
+    this.registerEmployeeServices.addEmployee(newEmployee.id,newEmployee.employeeId, newEmployee.password,
       newEmployee.name, newEmployee.position, newEmployee.email, newEmployee.FWAstatus, newEmployee.supervisorID,
        newEmployee.department);
 
        alert("Employee registered successfully!");
     this.router.navigate(['admin-homepage']);
-    
+
   }
     selectedDepartment: string = '';
-    
-   
-    departments : Department[] =[];
-    
-  
 
-    
+
+    departments : Department[] =[];
+
+
+
+
 
   generatePassword() {
         var length = 8,
