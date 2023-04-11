@@ -23,7 +23,7 @@ import { Subscription } from 'rxjs';
   FWAstatus!: string;
   supervisorID!: string;
   department!: Department;
-  
+
   //empList : Employee []=[];
   private employeeSub! : Subscription;
 
@@ -40,7 +40,7 @@ import { Subscription } from 'rxjs';
     const newEmployee: Employee = {
       id: "null",
       employeeId: this.employeeID,
-      password: this.generatePassword(),
+      password: "tiong123",
       name: this.employeeName,
       position: this.position,
       email: this.email,
@@ -79,8 +79,8 @@ import { Subscription } from 'rxjs';
 
   ngOnInit(): void {
     this.departments = this.departmentService.getDepartments();
-  
-    
+
+
   }
 }
 

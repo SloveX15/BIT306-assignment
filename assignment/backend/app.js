@@ -90,39 +90,45 @@ app.put("/api/dailySchedules/:id",checkAuth,(req, res, next)=>{
 });
 
 //for users api call
-app.post("/api/users", checkAuth,(req, res, next) => {
+app.post("/api/users", (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
-    const users = new DUsers({
-    
+    const users = new User({
       employeeId: req.body.employeeId,
       password : hash,
       name : req.body.name,
       position : req.body.position,
       email : req.body.email,
       FWAstatus : req.body.FWAstatus,
-      supervisorID : req.body.supervisorID,
-      department : {
+      supervisorID : req.body.supervisorID
+    });
+
+    if (req.body.department) {
+      const department = {
         deptID: req.body.department.deptID,
         deptName: req.body.department.deptName,
         flexiHours: req.body.department.flexiHours,
         workFromHome: req.body.department.workFromHome,
         hybrid: req.body.department.hybrid
-      } 
-     });
-     DUsers.save().then((createdDUsers)=> {
+      };
+      users.department = department;
+    }
+
+    users.save()
+    .then((createdDUsers)=> {
       res.status(201).json({
         message : 'Users registered successfully',
         dUsersId : createdDUsers.id
-      })
-      .catch(err => { // response error if there is error (exm: create with same email)
-        res.status(500).json({
-          error: err
-        });
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
       });
     });
   });
 });
+
 
 app.get('/api/users', (req, res, next) => {
   User.find()
@@ -196,7 +202,7 @@ app.post("/api/request", checkAuth,(req, res, next) => {
    comment : req.body.comment,
    employeeID : req.body.employeeID,
 
-   
+
 
   });
 
@@ -300,7 +306,7 @@ app.post("/api/request", checkAuth,(req, res, next) => {
 
   app.post('/api/users', (req, res, next) => {
     let fetchedUser;
-    User.findOne({employeeId: req.body.employeeId})
+    User.findOne({employeeId: req.body.username})
       .then(user => {
         if(!user){
           return res.status(401).json({

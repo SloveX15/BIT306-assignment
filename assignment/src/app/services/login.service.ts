@@ -22,7 +22,7 @@ export class AdminLoginService{
   private loggedInAdmin: Admin | undefined;
 
   authenticateLogin(employeeId: string, password: string) {
-    const authdata = {employeeId: employeeId, password: password};
+    const authdata = {username: employeeId, password: password};
     this.http.post<{token: string, users: any}>('http://localhost:3001/api/users', authdata)
       .subscribe(response => {
         const token = response.token;
