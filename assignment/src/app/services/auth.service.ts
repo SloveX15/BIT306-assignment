@@ -9,7 +9,6 @@ import { Router } from "@angular/router";
 export class AuthService  {
 private isAuthenticated! : boolean;
 private token! : string;
-private 
 private authStatusListener = new Subject<boolean>();
 constructor(private http : HttpClient , private router : Router){}
 
@@ -24,7 +23,7 @@ createUser (ID:string , password : string){
   const authData : AuthData = {ID: ID, password :password};
   this.http.post('http://localhost:3000/api/user/signup' , authData)
   .subscribe(response => {
-    console.log(response);  
+    console.log(response);
 
   });
 }
@@ -40,7 +39,20 @@ login (ID:string , password : string){
       this.isAuthenticated = true;
       // emit new value after getting the token
       this.authStatusListener.next(true);
-
+      this.user = {
+        UserId: response.user._id,
+        username: response.user.username,
+        password: "",
+        fullname: response.user.fullname,
+        email: response.user.email,
+        phoneNumber: response.user.phoneNumber,
+        staffId: response.user.staffId,
+        position: response.user.position,
+        schoolId: response.user.schoolId,
+        occupation: response.user.occupation,
+        dateOfBirth: response.user.dateOfBirth,
+        userType: response.user.userType
+      }
     }
     console.log("token" , response);
   });

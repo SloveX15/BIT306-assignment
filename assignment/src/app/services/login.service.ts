@@ -1,29 +1,56 @@
-import { Injectable } from '@angular/core';
-
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import { Admin } from '../models/Admin.model';
+import { Router } from "@angular/router";
+import { map, Subject } from "rxjs";
+import { Employee } from '../models/Employee.model';
+import { registerEmployeeServices } from './register-employee.service';
+import { Subscription } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AdminLoginService {
-  constructor() { }
+export class AdminLoginService{
+  private token!: string;
+  private authStatusListener = new Subject<boolean>();
+  private user!: Employee;
+  private userSub! : Subscription;
+  private employees: Employee[] = [];
 
-  private admins: Admin[] = [
-    { username: 'admin', password: 'p123', fullname: 'Alice', userType: 'HR' },
-    { username: 'b', password: 'p123', fullname: 'Zara', userType: 'HR' },
-    { username: 'E001', password: 'p123', fullname: 'John', userType: 'Employee' },
-    { username: 'E002', password: 'p123', fullname: 'Mary', userType: 'Supervisor' }
-  ];
+
+  constructor(public router:Router, private http: HttpClient, public employeeService:registerEmployeeServices) { }
+
 
   private loggedInAdmin: Admin | undefined;
 
-  authenticateLogin(username: string, password: string): boolean {
-    const admin = this.admins.find(x => x.username === username && x.password === password);
+  authenticateLogin(employeeId: string, password: string) {
+    const authdata = {employeeId: employeeId, password: password};
+    this.http.post<{token: string, users: any}>('http://localhost:3001/api/users', authdata)
+      .subscribe(response => {
+        const token = response.token;
+        this.token = token;
+        this.authStatusListener.next(true);
 
-    if (admin) {
-      this.loggedInAdmin = admin;
-      return true;
-    }
+        this.user = {
+          id: response.users._id,
+          employeeId: response.users.employeeId,
+          password: response.users.password,
+          name: response.users.name,
+          position: response.users.position,
+          email: response.users.email,
+          FWAstatus: response.users.FWAstatus,
+          supervisorID:response.users.supervisorID,
+          department:response.users.department,
+        }
 
-    return false;
+        if(response.users.position == "Admin"){
+            this.router.navigate(["admin-homepage"]);
+        }else if (response.users.position == "Supervisor") {
+          this.router.navigate(["review-request"]);
+        } else {
+          this.router.navigate(["schoolAdmin"]);
+        }{
+            this.router.navigate(["ownSchedule"]);
+        }
+      });
   }
 
   whoseLoggedIn(): Admin | undefined {

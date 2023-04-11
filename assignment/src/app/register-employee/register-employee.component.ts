@@ -17,14 +17,14 @@ import { NgForm } from '@angular/forms';
 })
   export class RegisterEmployeeComponent implements OnInit{
     employeeID!: string;
-  
+
     employeeName!: string;
   position!: string;
   email!: string;
   FWAstatus!: string;
   supervisorID!: string;
   department!: Department;
-  
+
 
 
   constructor(private registerEmployeeServices: registerEmployeeServices,
@@ -37,6 +37,7 @@ import { NgForm } from '@angular/forms';
       return;
     }
     const newEmployee: Employee = {
+      id: 'null',
       employeeId: this.employeeID,
       password: this.generatePassword(),
       name: this.employeeName,
@@ -46,22 +47,22 @@ import { NgForm } from '@angular/forms';
       supervisorID:this.supervisorID,
       department: this.departmentService.getDepartmentID(this.selectedDepartment)
     };
-    this.registerEmployeeServices.addEmployee(newEmployee.employeeId, newEmployee.password, 
+    this.registerEmployeeServices.addEmployee(newEmployee.id,newEmployee.employeeId, newEmployee.password,
       newEmployee.name, newEmployee.position, newEmployee.email, newEmployee.FWAstatus, newEmployee.supervisorID,
        newEmployee.department);
 
        alert("Employee registered successfully!");
     this.router.navigate(['admin-homepage']);
-    
+
   }
     selectedDepartment: string = '';
-    
-   
-    departments : Department[] =[];
-    
-    
 
-    
+
+    departments : Department[] =[];
+
+
+
+
 
   generatePassword() {
         var length = 8,
@@ -77,7 +78,7 @@ import { NgForm } from '@angular/forms';
 
   ngOnInit(): void {
     this.departments = this.departmentService.getDepartments();
-    
+
   }
 }
 

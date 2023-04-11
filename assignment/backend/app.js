@@ -8,9 +8,9 @@ const mongoose = require('mongoose');
 
 const bcrypt = require("bcrypt");
 // const User = require('./models/user');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-// const checkAuth = require('./middleware/check-auth');
+const checkAuth = require('./middleware/check-auth');
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use((req, res, next) =>{
   next();
 });
 
-app.post("/api/dailySchedules", (req, res, next) => {
+app.post("/api/dailySchedules",checkAuth, (req, res, next) => {
   const dSchedule = new DSchedule({
     employeeId : req.body.employeeId,
     workLocation : req.body.workLocation,
@@ -66,7 +66,7 @@ app.get('/api/dailySchedules', (req, res, next) => {
     });
 });
 
-app.put("/api/dailySchedules/:id",(req, res, next)=>{
+app.put("/api/dailySchedules/:id",checkAuth,(req, res, next)=>{
   const ds = new DSchedule({
     _id: req.body.id,
     employeeId : req.body.employeeId,
@@ -88,7 +88,7 @@ app.put("/api/dailySchedules/:id",(req, res, next)=>{
 });
 
 //for users api call
-app.post("/api/users", (req, res, next) => {
+app.post("/api/users", checkAuth,(req, res, next) => {
   const users = new DUsers({
     password : req.body.password,
     employeeId: req.body.employeeId,
@@ -109,7 +109,7 @@ app.post("/api/users", (req, res, next) => {
 });
 
 app.get('/api/users', (req, res, next) => {
-  DUsers.find()
+  User.find()
     .then((documents) => {
       res.status(200).json({
         message: 'Users fetched successfully',
@@ -124,7 +124,7 @@ app.get('/api/users', (req, res, next) => {
     });
 });
 
-app.put("/api/users/:id",(req, res, next)=>{
+app.put("/api/users/:id",checkAuth,(req, res, next)=>{
   const users = new DUsers({
     _id: req.body.id,
     employeeId: req.body.employeeId,
@@ -149,7 +149,7 @@ app.put("/api/users/:id",(req, res, next)=>{
 //for request api call
 
 
-app.post("/api/request", (req, res, next) => {
+app.post("/api/request", checkAuth,(req, res, next) => {
 
    const dRequest = new DRequest({
 
@@ -163,11 +163,13 @@ app.post("/api/request", (req, res, next) => {
 
    reason : req.body.reason,
 
+   status: req.body.status,
+
    comment : req.body.comment,
 
    employeeID : req.body.employeeID,
 
-   status: req.body.status,
+
 
   });
 
@@ -224,7 +226,7 @@ app.post("/api/request", (req, res, next) => {
 
 
 
-  app.put("/api/request/:id",(req, res, next)=>{
+  app.put("/api/request/:id",checkAuth,(req, res, next)=>{
 
    const r = new DRequest({
 
@@ -269,9 +271,9 @@ app.post("/api/request", (req, res, next) => {
 
   });
 
-  app.post('/api/user/login', (req, res, next) => {
+  app.post('/api/users', (req, res, next) => {
     let fetchedUser;
-    User.findOne({username: req.body.username})
+    User.findOne({employeeId: req.body.employeeId})
       .then(user => {
         if(!user){
           return res.status(401).json({
@@ -288,7 +290,7 @@ app.post("/api/request", (req, res, next) => {
           });
         }
         const token = jwt.sign(
-          {username: fetchedUser.username, userId: fetchedUser._id},
+          {employeeId: fetchedUser.employeeId, id: fetchedUser._id},
           'secret_this_should_be_longer',
           {expiresIn: '1h'}
         );

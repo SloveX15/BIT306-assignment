@@ -1,20 +1,18 @@
 import { Employee } from "../models/Employee.model";
 import {Injectable} from '@angular/core';
 import { Department } from "../models/Department.model";
+import {Subject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 
-export class registerEmployeeServices{
-    private empList : Employee  [] = [
-        { employeeId: "E001",password:"", name: 'John Smith',position:"employee", email:"johm@gmail.com", FWAstatus:"new", supervisorID:"S1001",department: { deptID: 'IT', deptName: 'Sales' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "E002",password:"", name: 'Jane Doe',position:"supervisor",email:"jane@gmail.com",FWAstatus:"new", supervisorID:"S1001",department: { deptID: 'IT', deptName: 'Marketing' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "admin",password:"", name: 'Bob Johnson', position:"HR",email:"bob@gmail.com",FWAstatus:"new",supervisorID:"S1001",department: { deptID: 'MKT', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "E004",password:"", name: 'Megan Chris', position:"supervisor",email:"megan@gmail.com",FWAstatus:"new",supervisorID:"S1001",department: { deptID: 'MKT', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
-      ];
+export class registerEmployeeServices {
+    private empList : Employee  [] = [];
+      private empUpdated = new Subject<Request[]>();
 
 
-
-    addEmployee( employeeId: string,
+    addEmployee(
+      id:string,
+      employeeId: string,
         password: string,
         name: string,
         position: string,
@@ -22,7 +20,7 @@ export class registerEmployeeServices{
         FWAstatus: string,
         supervisorID:string,
         department:Department){
-        const empsList: Employee = {employeeId:employeeId, password:password, name:name, position:position,email:email, FWAstatus:FWAstatus, supervisorID:supervisorID, department:department};
+        const empsList: Employee = {id:id,employeeId:employeeId, password:password, name:name, position:position,email:email, FWAstatus:FWAstatus, supervisorID:supervisorID, department:department};
         this.empList.push(empsList);
       }
 
@@ -41,6 +39,10 @@ export class registerEmployeeServices{
       }
       currentEmployee(){
         return this.employee;
+      }
+
+      getDEmpuestUpdateListener(){
+        return this.empUpdated.asObservable();
       }
 
 }

@@ -66,7 +66,7 @@ export class SubmitRequestComponent implements OnInit {
       workType,
       description,
       reason,
-      status,
+      'pending',
       '',
       this.employeeID
     );
