@@ -1,17 +1,15 @@
 import { Employee } from "../models/Employee.model";
 import {Injectable} from '@angular/core';
 import { Department } from "../models/Department.model";
-
+import { HttpClient } from "@angular/common/http";
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
 @Injectable({providedIn: 'root'})
 
 export class registerEmployeeServices{
-    private empList : Employee  [] = [
-        { employeeId: "E001",password:"", name: 'John Smith',position:"employee", email:"johm@gmail.com", FWAstatus:"new", supervisorID:"S1001",department: { deptID: 'IT', deptName: 'Sales' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "E002",password:"", name: 'Jane Doe',position:"supervisor",email:"jane@gmail.com",FWAstatus:"new", supervisorID:"S1001",department: { deptID: 'IT', deptName: 'Marketing' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "admin",password:"", name: 'Bob Johnson', position:"HR",email:"bob@gmail.com",FWAstatus:"new",supervisorID:"S1001",department: { deptID: 'MKT', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
-        { employeeId: "E004",password:"", name: 'Megan Chris', position:"supervisor",email:"megan@gmail.com",FWAstatus:"new",supervisorID:"S1001",department: { deptID: 'MKT', deptName: 'HR' ,flexiHours:0,workFromHome:0,hybrid:0} },
-      ];
-
+    private empList : Employee  [] = [];
+    private empListUpdated = new Subject<Employee[]>();
+    constructor(private http:HttpClient, private router : Router){}
 
 
     addEmployee( employeeId: string,
@@ -22,7 +20,17 @@ export class registerEmployeeServices{
         FWAstatus: string,
         supervisorID:string,
         department:Department){
-        const empsList: Employee = {employeeId:employeeId, password:password, name:name, position:position,email:email, FWAstatus:FWAstatus, supervisorID:supervisorID, department:department};
+        const empsList: Employee = {id:'null',employeeId:employeeId, password:password, name:name, position:position,email:email, FWAstatus:FWAstatus, supervisorID:supervisorID, department:department};
+        this.http.post<{message:string,reqId: string}>('http://localhost:3001/api/users',empsList)
+      .subscribe((responseData)=>{
+        // console.log(responseData.message);
+        const id = responseData.reqId;
+        empsList.id = id;
+        this.empList.push(empsList);
+        this.empListUpdated.next([...this.empList]);
+        this.router.navigate(['/']);
+        console.log("Employee added sucessfulyy " ,empsList);
+      })
         this.empList.push(empsList);
       }
 
@@ -32,9 +40,10 @@ export class registerEmployeeServices{
         return this.empList;
       }
 
-      getEmployeeById(empID:string){
-        return this.empList.find(e => e.employeeId === empID)!;
+      getEmpListUpdateListener(){
+        return this.empListUpdated.asObservable();
       }
+    
 
       storeCurrentEmployee(empID:string){
         this.employee = this.empList.find(e => e.employeeId === empID)!;

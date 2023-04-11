@@ -4,9 +4,11 @@ const bodyParser = require('body-parser');
 const DSchedule = require('./models/dSchedule');
 const DUsers = require ('./models/dUsers');
 const DRequest = require ('./models/dRequest');
+const Ddepartment = require('./models/dDepartment');
 const mongoose = require('mongoose');
 
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+const dDepartment = require('./models/dDepartment');
 // const User = require('./models/user');
 // const jwt = require('jsonwebtoken');
 
@@ -89,22 +91,38 @@ app.put("/api/dailySchedules/:id",(req, res, next)=>{
 
 //for users api call
 app.post("/api/users", (req, res, next) => {
-  const users = new DUsers({
-    password : req.body.password,
-    employeeId: req.body.employeeId,
-    name : req.body.name,
-    position : req.body.position,
-    email : req.body.email,
-    FWAstatus : req.body.FWAstatus,
-    supervisorID : req.body.supervisorID,
-    department : req.body.department
-   });
-   DUsers.save().then((createdDUsers)=> {
-    res.status(201).json({
-      message : 'Users registered successfully',
-      dUsersId : createdDUsers.id
+  bcrypt.hash(req.body.password, 10)
+  .then(hash => {
+    const users = new DUsers({
+    
+      employeeId: req.body.employeeId,
+      password : hash,
+      name : req.body.name,
+      position : req.body.position,
+      email : req.body.email,
+      FWAstatus : req.body.FWAstatus,
+      supervisorID : req.body.supervisorID,
+      department : {
+        deptID: req.body.department.deptID,
+        deptName: req.body.department.deptName,
+        flexiHours: req.body.department.flexiHours,
+        workFromHome: req.body.department.workFromHome,
+        hybrid: req.body.department.hybrid
+      } 
+     });
+     DUsers.save().then((createdDUsers)=> {
+      res.status(201).json({
+        message : 'Users registered successfully',
+        dUsersId : createdDUsers.id
+      })
+      .catch(err => { // response error if there is error (exm: create with same email)
+        res.status(500).json({
+          error: err
+        });
+      });
     });
   });
+ 
 
 });
 
@@ -124,28 +142,22 @@ app.get('/api/users', (req, res, next) => {
     });
 });
 
-app.put("/api/users/:id",(req, res, next)=>{
-  const users = new DUsers({
-    _id: req.body.id,
-    employeeId: req.body.employeeId,
-    password : req.body.password,
-    name : req.body.name,
-    position : req.body.position,
-    email : req.body.email,
-    FWAstatus : req.body.FWAstatus,
-    supervisorID: req.body.supervisorID,
-    department: req.body.department,
-  });
-
-  DUsers.updateOne({ID:req.params.ID} , users).then (
-  result => {
-   console.log(result);
-   res.status(200).json({message: " user details update successful"});
-  }
-  );
-
+//for department api call
+app.get('/api/departments', (req, res, next) => {
+  Ddepartment.find()
+    .then((documents) => {
+      res.status(200).json({
+        message: 'Department fetched successfully',
+        users: documents,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        error: error,
+      });
+    });
 });
-
 //for request api call
 
 
@@ -160,14 +172,12 @@ app.post("/api/request", (req, res, next) => {
    workType : req.body.workType,
 
    description : req.body.description,
-
    reason : req.body.reason,
-
+   status: req.body.status,
    comment : req.body.comment,
-
    employeeID : req.body.employeeID,
 
-   status: req.body.status,
+   
 
   });
 

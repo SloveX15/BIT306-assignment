@@ -5,7 +5,7 @@ import { Department } from '../models/Department.model';
 import { registerEmployeeServices } from '../services/register-employee.service';
 import { DepartmentService } from '../services/department.service';
 import { NgForm } from '@angular/forms';
-
+import { Subscription } from 'rxjs';
 
 
 
@@ -17,7 +17,7 @@ import { NgForm } from '@angular/forms';
 })
   export class RegisterEmployeeComponent implements OnInit{
     employeeID!: string;
-  
+    
     employeeName!: string;
   position!: string;
   email!: string;
@@ -25,6 +25,8 @@ import { NgForm } from '@angular/forms';
   supervisorID!: string;
   department!: Department;
   
+  //empList : Employee []=[];
+  private employeeSub! : Subscription;
 
 
   constructor(private registerEmployeeServices: registerEmployeeServices,
@@ -37,6 +39,7 @@ import { NgForm } from '@angular/forms';
       return;
     }
     const newEmployee: Employee = {
+      id: "null",
       employeeId: this.employeeID,
       password: this.generatePassword(),
       name: this.employeeName,
@@ -59,7 +62,7 @@ import { NgForm } from '@angular/forms';
    
     departments : Department[] =[];
     
-    
+  
 
     
 
@@ -77,6 +80,7 @@ import { NgForm } from '@angular/forms';
 
   ngOnInit(): void {
     this.departments = this.departmentService.getDepartments();
+  
     
   }
 }

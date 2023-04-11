@@ -21,11 +21,11 @@
   <ul class="list">
     <li *ngFor="let request of requests" (click)="onSelect(request)">
       <div class="list-header">
-        <h3>Request ID: {{ request.requestId }}</h3>
-        <p>Request Date: {{ request.requestDate }}</p>
+        <h3>Request ID: {{ request.reqId }}</h3>
+        <p>Request Date: {{ request.reqDate }}</p>
       </div>
       <div class="list-details" *ngIf="selectedRequest === request">
-        <p>Employee: {{request.employeeID}}</p>
+        <p>Employee: {{request.employeeId}}</p>
         <p>Work Type: {{ request.workType }}</p>
         <p>Description: {{ request.description }}</p>
         <p>Reason: {{ request.reason }}</p>
