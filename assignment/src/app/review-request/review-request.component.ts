@@ -39,9 +39,9 @@ export class ReviewRequestComponent implements OnInit {
       if(result=='true'){
         alert("Request status has been updated to approve!")
 
-        this.submitRequestService.updateRequest("6434257d2a26b50aa268a31c" ,this.selectedRequest.requestId, 'approved', this.commentText,
-        this.selectedRequest.requestDate,this.selectedRequest.workType, this.selectedRequest.description,
-        this.selectedRequest.reason,this.selectedRequest.employeeID);
+        this.submitRequestService.updateRequest("6434257d2a26b50aa268a31c" ,this.selectedRequest.reqId, 'approved', this.commentText,
+        this.selectedRequest.reqDate,this.selectedRequest.workType, this.selectedRequest.description,
+        this.selectedRequest.reason,this.selectedRequest.employeeId);
       }
     })
 
@@ -53,9 +53,9 @@ export class ReviewRequestComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result =>{
       if(result=='true'){
         alert("Request status has been updated to reject!")
-      this.submitRequestService.updateRequest(this.selectedRequest._id ,this.selectedRequest.requestId, 'rejected', this.commentText,
-      this.selectedRequest.requestDate,this.selectedRequest.workType, this.selectedRequest.description,
-      this.selectedRequest.reason,this.selectedRequest.employeeID);
+      this.submitRequestService.updateRequest(this.selectedRequest.id ,this.selectedRequest.reqId, 'rejected', this.commentText,
+      this.selectedRequest.reqDate,this.selectedRequest.workType, this.selectedRequest.description,
+      this.selectedRequest.reason,this.selectedRequest.employeeId);
       }
     })
 

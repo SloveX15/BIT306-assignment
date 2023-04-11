@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./submit-request.component.css']
 })
 export class SubmitRequestComponent implements OnInit {
-  requests: Request [] = [];
+  Requests: Request [] = [];
   employee!:Employee;
   employeeID! :string;
   workTypes = ['flexi-hour', 'work-from-home', 'hybrid'];
@@ -41,7 +41,7 @@ export class SubmitRequestComponent implements OnInit {
     this.submitRequestService.getRequests();
     this.requestSub = this.submitRequestService.getDRequestUpdateListener()
       .subscribe((request:Request[])=> {
-        this.requests = request;
+        this.Requests = request;
       });
   }
 
@@ -53,16 +53,16 @@ export class SubmitRequestComponent implements OnInit {
     }
 
 
-    const requestId = this.requests.length+1;
-    const requestDate = new Date();
+    const reqId = this.Requests.length+1;
+    const reqDate = new Date();
     const workType = form.value.workType;
     const description = form.value.description;
     const reason = form.value.reason;
     const status = 'pending';
 
     this.submitRequestService.addRequest(
-      requestId.toString(),
-      requestDate,
+      reqId.toString(),
+      reqDate,
       workType,
       description,
       reason,

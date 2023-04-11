@@ -1,11 +1,11 @@
 export interface Request {
- _id:string;
- requestId: string;
- requestDate: Date;
+ id:string;
+ reqId: string;
+ reqDate: Date;
  workType: string;
  description: string;
  reason: string;
  status: string;
  comment: string;
- employeeID: string;
+ employeeId: string;
 }

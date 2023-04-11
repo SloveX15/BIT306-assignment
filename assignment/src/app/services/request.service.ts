@@ -18,13 +18,13 @@ export class submitRequestServices {
     .pipe(map((dRequestData)=>{
       console.log(dRequestData);
       if(dRequestData.dRequests){
-        return dRequestData.dRequests.map((dRequests: { _id: any; requestId: any; requestDate: any;
+        return dRequestData.dRequests.map((dRequests: { _id: any; reqId: any; reqDate: any;
            workType: any; description: any; reason: any;
           status: any; comment: any; employeeId: any; })=>{
           return{
-            _id: dRequests._id,
-            reqId : dRequests.requestId,
-          reqDate : dRequests.requestDate,
+            id: dRequests._id,
+            reqId : dRequests.reqId,
+          reqDate : dRequests.reqDate,
           workType : dRequests.workType,
           description : dRequests.description,
           reason : dRequests.reason,
@@ -56,49 +56,88 @@ export class submitRequestServices {
 
 
   addRequest(
-    requestId: string,
-    requestDate: Date,
+    reqId: string,
+    reqDate: Date,
     workType: string,
     description: string,
     reason: string,
     status: string,
     comment: string,
-    employeeID: string,
+    employeeId: string,
   ) {
     // Get the current user's employee ID
     //const employeeID = this.authService.getCurrentUser().employeeID;
 
     const dRequest: Request = {
-      _id:'null',
-      requestId: requestId,
-      requestDate: requestDate,
+      id:'null',
+      reqId: reqId,
+      reqDate: new Date(reqDate),
       workType: workType,
       description: description,
       reason: reason,
       status: status,
       comment: comment,
-      employeeID: employeeID
+      employeeId: employeeId
     };
     this.http.post<{message:string,dRequestId: string}>('http://localhost:3001/api/request',dRequest)
       .subscribe((responseData)=>{
         // console.log(responseData.message);
         const id = responseData.dRequestId;
-        dRequest._id = id;
+        dRequest.id = id;
         this.dRequests.push(dRequest);
         this.reqUpdated.next([...this.dRequests]);
-        console.log("Daily Schedule added sucessfulyy " ,dRequest);
+        console.log("request added sucessfulyy " ,dRequest);
       })
 
     this.dRequests.push(dRequest);
   }
 
-  updateRequest(id:string, requestId: string, newStatus: string, newCommnet:string, reqDate:Date,
-    workType:string, description: string, reason:string, employeeID:string) {
-    const request : Request = {_id:id, requestId: requestId, status: newStatus,
-       comment:newCommnet, requestDate:reqDate, workType:workType, description:description,
-      reason:reason, employeeID:employeeID};
+  updateRequest(id:string, reqId: string, newStatus: string, newCommnet:string, reqDate:Date,
+    workType:string, description: string, reason:string, employeeId:string) {
+    const request : Request = {id:id, reqId: reqId, status: newStatus,
+       comment:newCommnet, reqDate:reqDate, workType:workType, description:description,
+      reason:reason, employeeId:employeeId};
     this.http.put('http://localhost:3001/api/request/' + id , request)
     .subscribe(response => console.log (response));
   }
+
+  getRequestsByEmployee(employeeId: string) {
+    return this.http.get<{ message: string, dRequests: any }>(`http://localhost:3001/api/request/employee/${employeeId}`)
+      .pipe(map((dRequestData)=>{
+        console.log(dRequestData);
+        if(dRequestData.dRequests){
+          return dRequestData.dRequests.map((dRequests: { _id: any; reqId: any; reqDate: any;
+             workType: any; description: any; reason: any;
+            status: any; comment: any; employeeId: any; })=>{
+            return{
+              id: dRequests._id,
+              reqId : dRequests.reqId,
+              reqDate : dRequests.reqDate,
+              workType : dRequests.workType,
+              description : dRequests.description,
+              reason : dRequests.reason,
+              status : dRequests.status,
+              comment :dRequests.comment,
+              employeeId : dRequests.employeeId,
+            }
+          });
+        }else{
+          return [];
+        }
+      }))
+      .subscribe(transformedRequest => {
+        console.log('Response:', transformedRequest);
+        this.dRequests = transformedRequest;
+        this.reqUpdated.next([...this.dRequests]);
+        console.log(this.dRequests);
+      },
+      error => {
+        console.log('Error:', error);
+      }
+    );
+  }
+  
+
+
 }
 

@@ -147,7 +147,7 @@ app.put("/api/users/:id",(req, res, next)=>{
 });
 
 //for request api call
-//for request api call
+
 
 app.post("/api/request", (req, res, next) => {
 
@@ -234,7 +234,7 @@ app.post("/api/request", (req, res, next) => {
 
    reqDate: req.body.reqDate,
 
- workType: req.body.reqDate,
+  workType: req.body.workType,
 
    description: req.body.description,
 
@@ -245,9 +245,6 @@ app.post("/api/request", (req, res, next) => {
    comment:req.body.comment,
 
    employeeId: req.body.employeeId,
-
-   employeeId : req.body.employeeId,
-
 
 
    });
@@ -261,7 +258,7 @@ app.post("/api/request", (req, res, next) => {
 
   console.log(result);
 
-  res.status(200).json({message: " update successful"});
+  res.status(200).json({message: "request update successful"});
 
  }
 

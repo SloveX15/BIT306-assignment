@@ -1,0 +1,26 @@
+<h2>Request History</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Request ID</th>
+      <th>Date</th>
+      <th>Work Type</th>
+      <th>Description</th>
+      <th>Reason</th>
+      <th>Status</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of requests">
+      <td>{{ request.reqId }}</td>
+      <td>{{ request.reqDate | date }}</td>
+      <td>{{ request.workType }}</td>
+      <td>{{ request.description }}</td>
+      <td>{{ request.reason }}</td>
+      <td>{{ request.status }}</td>
+      <td>{{ request.comment }}</td>
+    </tr>
+  </tbody>
+</table>
