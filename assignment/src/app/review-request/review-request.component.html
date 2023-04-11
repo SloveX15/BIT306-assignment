@@ -10,6 +10,7 @@
       <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
       <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
+    
   </nav>
 </header>
 <br>
@@ -19,7 +20,7 @@
 <h2>Request List</h2>
 <nav class="container">
   <ul class="list">
-    <li *ngFor="let request of requests" (click)="onSelect(request)">
+    <li *ngFor="let request of pendingRequests" (click)="onSelect(request)">
       <div class="list-header">
         <h3>Request ID: {{ request.reqId }}</h3>
         <p>Request Date: {{ request.reqDate }}</p>

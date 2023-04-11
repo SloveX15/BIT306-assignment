@@ -1,26 +1,52 @@
-<h2>Request History</h2>
+<header id="nav-wrapper">
+    <nav id="nav">
+      <div class="nav left">
+        <span class="gradient skew"><h1 class="logo un-skew"><a href="#home">Flex IS</a></h1></span>
+        <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
+      </div>
+      <div class="nav right">
+        <a href="review-request" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
+        <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
+        <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
+        <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      </div>
+      
+    </nav>
+  </header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h2>Request List</h2>
+  <nav class="container">
+    <ul class="list">
+      <li *ngFor="let request of passedRequests" (click)="onSelect(request)">
+        <div class="list-header">
+          <h3>Request ID: {{ request.reqId }}</h3>
+          <p>Request Date: {{ request.reqDate }}</p>
+        </div>
+        <div class="list-details" *ngIf="selectedRequest === request">
+          <p>Employee: {{request.employeeId}}</p>
+          <p>Work Type: {{ request.workType }}</p>
+          <p>Description: {{ request.description }}</p>
+          <p>Reason: {{ request.reason }}</p>
+          <p>Status: {{ request.status }}</p>
+          <p>Comment: {{ request.comment }}</p>
+  
+          
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Request ID</th>
-      <th>Date</th>
-      <th>Work Type</th>
-      <th>Description</th>
-      <th>Reason</th>
-      <th>Status</th>
-      <th>Comment</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let request of requests">
-      <td>{{ request.reqId }}</td>
-      <td>{{ request.reqDate | date }}</td>
-      <td>{{ request.workType }}</td>
-      <td>{{ request.description }}</td>
-      <td>{{ request.reason }}</td>
-      <td>{{ request.status }}</td>
-      <td>{{ request.comment }}</td>
-    </tr>
-  </tbody>
-</table>
+ 
+            <p style="color: red;">No comment can be added for this request as it is already {{selectedRequest.status}}.</p>
+
+            <br>
+  
+ 
+          
+        </div>
+  </li>
+    </ul>
+  </nav>
+  <footer style="text-align: center;">
+    &#169; B2000280 & B2001114
+  </footer>
+  
