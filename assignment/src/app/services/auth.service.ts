@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 export class AuthService  {
 private isAuthenticated! : boolean;
 private token! : string;
+private 
 private authStatusListener = new Subject<boolean>();
 constructor(private http : HttpClient , private router : Router){}
 
