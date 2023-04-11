@@ -12,7 +12,9 @@ export class registerEmployeeServices{
     constructor(private http:HttpClient, private router : Router){}
 
 
-    addEmployee( employeeId: string,
+    addEmployee(
+      id:string, 
+      employeeId: string,
         password: string,
         name: string,
         position: string,
