@@ -8,7 +8,7 @@ const requestSchema = mongoose.Schema({
   reason: {type: String, required: true},
   status: { type:String , requried : true},
   comment: {type: String,},
-  employeeID: { type:String }
+  employeeId: { type:String }
 });
 
 module.exports = mongoose.model('Request', requestSchema );

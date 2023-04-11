@@ -2,7 +2,7 @@
 const mongoose = require ('mongoose');
 
 const usersSchema = mongoose.Schema({
-  ID: {type: String,required :true},
+  employeeId: {type: String,required :true},
   password:{type: String, required:true},
   name: { type:String , requried : true},
   position: {type: String, required: true},

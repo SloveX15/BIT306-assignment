@@ -80,10 +80,10 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     // Iterate through the FWARequest array
     for (let fwaRequest of this.fwaData) {
       // Check if the request employee is in the filteredEmployees array
-      let employee = this.filteredEmployees.find(emp => emp.employeeId === fwaRequest.employeeID);
+      let employee = this.filteredEmployees.find(emp => emp.employeeId === fwaRequest.employeeId);
       if (employee) {
         // Get the date of the request
-        let requestDate = fwaRequest.requestDate.toISOString().substr(0, 10); // convert to YYYY-MM-DD format
+        let requestDate = fwaRequest.reqDate.toISOString().substr(0, 10); // convert to YYYY-MM-DD format
         // Increment the count for the date in the object
         this.dateCounts[requestDate] = (this.dateCounts[requestDate] || 0) + 1;
       }
