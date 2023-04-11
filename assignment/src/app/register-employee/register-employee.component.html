@@ -6,11 +6,19 @@
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="admin-homepage" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home Page</span></span></a>
+      <a routerLink="/Admin/{{id}}/admin-homepage" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Home Page</span>
+        </span>
+      </a>
       <a href="" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
-      <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-      
-      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      <a routerLink="/Supervisor/{{id}}/fwaAnalytics" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">View FWA Analytics</span>
+        </span>
+      </a>
+
+      <a href="#" class="nav-link" onclick="logout()"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -26,19 +34,19 @@
       <option *ngFor="let dept of departments" [value]="dept.deptID">{{ dept.deptName }}</option>
     </select>
     <br>
-  
+
     <label>
       Employee Name:
       <input type="text" [(ngModel)]="employeeName" name="employeeName" required>
     </label>
     <br>
-  
+
     <label>
       Employee ID:
-      <input type="text" [(ngModel)]="employeeID" name="employeeID" required>
+      <input type="text" [(ngModel)]="empID" name="employeeID" required>
     </label>
     <br>
-  
+
 
     <label>
       Position:
@@ -59,10 +67,10 @@
       <input id="supervisorID" type="text" [(ngModel)]="supervisorID" name="supervisorID" [disabled]="position === 'Supervisor'" required>
     </label>
     <br>
-    
+
     <button type="submit" (click)="addEmployee()" >Register Employee</button>
   </form>
-  
+
 </div>
 <footer style="text-align: center;">
   &#169; B2000280 & B2001114

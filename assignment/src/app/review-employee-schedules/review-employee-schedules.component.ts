@@ -12,9 +12,11 @@ import { Employee } from '../models/Employee.model';
 })
 export class ReviewEmployeeSchedulesComponent implements OnInit{
   selectedDate! :Date;
+  id!:string;
   filteredSchedules: DailySchedule[]=[];
   dailySchedules : DailySchedule[]=[];
   isEditing: boolean = false;
+  isEditMode!: boolean;
   employee!:Employee;
   empID!:string;
 
@@ -34,7 +36,10 @@ export class ReviewEmployeeSchedulesComponent implements OnInit{
         this.empID = params['employeeId'];
         this.employee = this.authenticateService.getUser();
       })
+      console.log(this.employee);
+    this.id = this.employee.id;
   }
+
 
   onSaveSupervisorComments(ds: DailySchedule) {
     this.dailyScheduleService.updateDSchedule(ds.id,ds.employeeId, ds.workHours, ds.workLocation, ds.workReport, ds.date, ds.comment,true);
@@ -54,6 +59,10 @@ export class ReviewEmployeeSchedulesComponent implements OnInit{
 
   ngOnDestroy() {
     this.dSchedulesSub.unsubscribe();
+  }
+
+  onLogout(){
+    this.authenticateService.logout();
   }
 
 

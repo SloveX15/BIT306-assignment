@@ -9,11 +9,18 @@
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="review-request" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
+      <a routerLink="/Supervisor/{{id}}/review-request" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Review FWA Request</span>
+        </span>
+      </a>
       <a href="fwaAnalytics" class="nav-link active"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-
-      <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
-      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      <a routerLink="/Supervisor/{{id}}/review" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Review Employee Schedule</span>
+        </span>
+      </a>
+      <a href="" class="nav-link" onclick="logout()"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -25,11 +32,19 @@
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="admin-homepage" class="nav-link"><span class="nav-link-span"><span class="u-nav">Home Page</span></span></a>
-      <a href="register-employee" class="nav-link"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
+      <a routerLink="/Admin/{{id}}/admin-homepage" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Home Page</span>
+        </span>
+      </a>
+      <a routerLink="/Admin/{{id}}/register-employee" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Register Employee</span>
+        </span>
+      </a>
       <a href="" class="nav-link active"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
 
-      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      <a href="" class="nav-link" onclick="logout()"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>

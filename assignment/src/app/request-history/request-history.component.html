@@ -6,11 +6,19 @@
       </div>
       <div class="nav right">
         <a href="review-request" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
-        <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-        <a href="review" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
-        <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+        <a routerLink="/Supervisor/{{id}}/fwaAnalytics" class="nav-link">
+          <span class="nav-link-span">
+            <span class="u-nav">View FWA Analytics</span>
+          </span>
+        </a>
+        <a routerLink="/Supervisor/{{id}}/review" class="nav-link">
+          <span class="nav-link-span">
+            <span class="u-nav">Review Employee Schedule</span>
+          </span>
+        </a>
+        <a href="#" class="nav-link" onclick="logout()"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
       </div>
-      
+
     </nav>
   </header>
   <br>
@@ -32,16 +40,16 @@
           <p>Reason: {{ request.reason }}</p>
           <p>Status: {{ request.status }}</p>
           <p>Comment: {{ request.comment }}</p>
-  
-          
 
- 
+
+
+
             <p style="color: red;">No comment can be added for this request as it is already {{selectedRequest.status}}.</p>
 
             <br>
-  
- 
-          
+
+
+
         </div>
   </li>
     </ul>
@@ -49,4 +57,3 @@
   <footer style="text-align: center;">
     &#169; B2000280 & B2001114
   </footer>
-  

@@ -13,6 +13,7 @@ import { AdminLoginService } from '../services/login.service';
   styleUrls: ['./own-schedule.component.css']
 })
 export class OwnScheduleComponent {
+  id!:String;
   empID!:String;
   employee!:Employee;
   selectedDate! :Date;
@@ -36,7 +37,8 @@ export class OwnScheduleComponent {
         this.empID = params['employeeId'];
         this.employee = this.authenticateService.getUser();
       })
-
+      console.log(this.employee);
+      this.id = this.employee.id;
 
   }
 
@@ -53,6 +55,10 @@ export class OwnScheduleComponent {
 
   ngOnDestroy() {
     this.dSchedulesSub.unsubscribe();
+  }
+
+  onLogout(){
+    this.authenticateService.logout();
   }
 
 

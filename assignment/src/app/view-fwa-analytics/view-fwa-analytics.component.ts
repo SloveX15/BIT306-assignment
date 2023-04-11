@@ -22,6 +22,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   private requestSub! : Subscription;
   private employeeSub!: Subscription;
   private departmentSub!: Subscription;
+  id!:string;
   employeePosition!:string;
   empID!:string;
   employee!:Employee;
@@ -69,10 +70,10 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.empID = params['employeeId'];
       this.employee = this.authenticateService.getUser();
-      this.employeePosition = this.authenticateService.getUser().position;
       })
-    this.employeePosition = this.authenticateService.getUser().position;
+    this.employeePosition = this.employee.position;
     this.departmentData = this.departmentService.getDepartments();
+    this.id = this.employee.id;
   }
 
   viewSchedule() {
@@ -126,6 +127,8 @@ export class ViewFWAAnalyticsComponent implements OnInit{
     // Set showDetails to true to show the date range input fields
     this.showDetails = true;
     }
-
+    onLogout(){
+      this.authenticateService.logout();
+    }
 }
 
