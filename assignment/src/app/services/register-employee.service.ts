@@ -10,7 +10,6 @@ import { response } from "express";
 
 export class registerEmployeeServices{
     private empList : Employee  [] = [];
-    private empListUpdated = new Subject<Employee[]>();
     constructor(private http:HttpClient, private router : Router){}
     private employeeUpdated = new Subject<Employee[]>();
 
@@ -25,7 +24,7 @@ export class registerEmployeeServices{
         supervisorID:string,
         deptID:string){
         const empsList: Employee = {id:'null',employeeId:employeeId, password:password, name:name,
-         position:position,email:email, 
+         position:position,email:email,
         FWAstatus:FWAstatus, supervisorID:supervisorID, deptID:deptID};
         this.http.post<{message:string,reqId: string}>('http://localhost:3001/api/users',empsList)
       .subscribe((responseData)=>{
@@ -33,11 +32,10 @@ export class registerEmployeeServices{
         const id = responseData.reqId;
         empsList.id = id;
         this.empList.push(empsList);
-        this.empListUpdated.next([...this.empList]);
+        this.employeeUpdated.next([...this.empList]);
         this.router.navigate(['/']);
         console.log("Employee added sucessfulyy " ,empsList);
       })
-        this.empList.push(empsList);
       }
 
       private employee!:Employee;
@@ -66,7 +64,7 @@ export class registerEmployeeServices{
       }
     }))
     .subscribe(transformedU => {
-      console.log('Response:', transformedU);
+      console.log('Response employee u:', transformedU);
       this.empList = transformedU;
       this.employeeUpdated.next([...this.empList]);
       console.log(this.empList);
@@ -79,7 +77,7 @@ export class registerEmployeeServices{
       }
 
       getEmpListUpdateListener(){
-        return this.empListUpdated.asObservable();
+        return this.employeeUpdated.asObservable();
       }
 
 

@@ -35,8 +35,8 @@ export class ViewFWAAnalyticsComponent implements OnInit{
 
   dateKeys: string[] = [];
   dateCounts: {[date: string]: number} = {};
-  employeeData:Employee[]=[];
-  filteredEmployees:Employee[]=[];
+  employeeData: Employee[]=[];
+  filteredEmployees: Employee[]=[];
   departmentData: Department[] = [];
   fwaData: Request[] = [];
   filteredScheduleData: DailySchedule[]=[];
@@ -86,7 +86,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
       }
       return false; // Exclude this schedule from the filteredScheduleData array
     });
-    
+
     if (this.startDate && this.endDate) {
       const start = new Date(this.startDate);
       const end = new Date(this.endDate);
@@ -101,17 +101,18 @@ export class ViewFWAAnalyticsComponent implements OnInit{
 
   viewDetails(): void {
     const selectedDept = this.departmentData.find(dept => dept.deptID === this.selectedDepartment);
-
     // Filter the employees by the selected department
+    console.log("EmployeeData",this.employeeData);
+    console.log("selectDeptID",selectedDept?.deptID);
     this.filteredEmployees = this.employeeData.filter(emp => emp.deptID === selectedDept?.deptID);
-
     // Iterate through the FWARequest array
     for (let fwaRequest of this.fwaData) {
       // Check if the request employee is in the filteredEmployees array
-      let employee = this.filteredEmployees.find(emp => emp.employeeId === fwaRequest.employeeId);
+      let employee = this.employeeData.find(emp => emp.employeeId === fwaRequest.employeeId);
       if (employee) {
         // Get the date of the request
-        let requestDate = fwaRequest.reqDate.toISOString().substr(0, 10); // convert to YYYY-MM-DD format
+        let requestDate = new Date(fwaRequest.reqDate).toISOString().substr(0, 10);
+        // convert to YYYY-MM-DD format
         // Increment the count for the date in the object
         this.dateCounts[requestDate] = (this.dateCounts[requestDate] || 0) + 1;
       }
