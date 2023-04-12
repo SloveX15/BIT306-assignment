@@ -42,6 +42,7 @@ const routes: Routes = [
   { path: 'review', component: ReviewEmployeeSchedulesComponent},
   { path: 'fwaAnalytics', component: ViewFWAAnalyticsComponent},
   { path: 'ownSchedule', component: OwnScheduleComponent},
+  { path: 'requestHistory', component: RequestHistoryComponent},
 ]
 
 @NgModule({

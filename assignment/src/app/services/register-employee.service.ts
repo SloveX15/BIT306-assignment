@@ -24,7 +24,9 @@ export class registerEmployeeServices{
         FWAstatus: string,
         supervisorID:string,
         deptID:string){
-        const empsList: Employee = {id:'null',employeeId:employeeId, password:password, name:name, position:position,email:email, FWAstatus:FWAstatus, supervisorID:supervisorID, deptID:deptID};
+        const empsList: Employee = {id:'null',employeeId:employeeId, password:password, name:name,
+         position:position,email:email, 
+        FWAstatus:FWAstatus, supervisorID:supervisorID, deptID:deptID};
         this.http.post<{message:string,reqId: string}>('http://localhost:3001/api/users',empsList)
       .subscribe((responseData)=>{
         // console.log(responseData.message);

@@ -12,12 +12,19 @@
       </div>
       
     </nav>
+    
   </header>
   <br>
   <br>
   <br>
   <br>
   <h2>Request List</h2>
+  <nav class="mid-nav">
+  
+    <a routerLink="/review-request">Review Requests</a>
+    <a routerLink="/requestHistory">Request History</a>
+  
+</nav>
   <nav class="container">
     <ul class="list">
       <li *ngFor="let request of passedRequests" (click)="onSelect(request)">
