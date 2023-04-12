@@ -33,7 +33,6 @@ export class registerEmployeeServices{
         empsList.id = id;
         this.empList.push(empsList);
         this.employeeUpdated.next([...this.empList]);
-        this.router.navigate(['/']);
         console.log("Employee added sucessfulyy " ,empsList);
       })
       }

@@ -42,7 +42,7 @@
       <p>Working Hours :{{ ds.workHours }}</p>
       <p>Date :{{ ds.date }}</p>
       <p>supervisorComments :{{ds.comment}}</p>
-      <div *ngIf="!isEditing && ds.isEditMode">
+      <div *ngIf="isEditing && ds.isEditMode">
         <mat-form-field>
           <textarea matInput name="supervisorComments" placeholder="Enter supervisor comments" [(ngModel)]="ds.comment"></textarea>
         </mat-form-field>
