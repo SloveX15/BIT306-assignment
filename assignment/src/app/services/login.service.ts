@@ -52,7 +52,7 @@ export class AdminLoginService{
         if(response.user.position == "Admin"){
             this.router.navigate(["Admin",response.user._id,"admin-homepage"]);
         }else if (response.user.position == "Supervisor") {
-          this.router.navigate(["Supervisor",response.user._id,"fwaAnalysis"]);
+          this.router.navigate(["Supervisor",response.user._id,"fwaAnalytics"]);
         } else {
           this.router.navigate(["Employee", response.user._id, "update"]);
         }
