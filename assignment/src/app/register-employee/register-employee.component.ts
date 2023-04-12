@@ -6,7 +6,8 @@ import { registerEmployeeServices } from '../services/register-employee.service'
 import { DepartmentService } from '../services/department.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
 
 
 
@@ -16,8 +17,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./register-employee.component.css']
 })
   export class RegisterEmployeeComponent implements OnInit{
-    employeeID!: string;
+    id!:string;
+    empID!: string;
     employeeName!: string;
+    employee!:Employee;
   position!: string;
   email!: string;
   FWAstatus!: string;
@@ -31,16 +34,16 @@ import { Subscription } from 'rxjs';
 
   constructor(private registerEmployeeServices: registerEmployeeServices,
     public departmentService: DepartmentService,
-    private router: Router) { }
+    private router: Router, public authenticateService: AdminLoginService,public route: ActivatedRoute,) { }
 
   addEmployee() {
-    if (!this.selectedDepartment || !this.employeeName || !this.employeeID || !this.position || !this.email) {
+    if (!this.selectedDepartment || !this.employeeName || !this.empID || !this.position || !this.email) {
       alert('Please fill out all required fields');
       return;
     }
     const newEmployee: Employee = {
       id: "null",
-      employeeId: this.employeeID,
+      employeeId: this.empID,
       password: "tiong123",
       name: this.employeeName,
       position: this.position,
@@ -84,8 +87,18 @@ import { Subscription } from 'rxjs';
 
   ngOnInit(): void {
     this.departments = this.departmentService.getDepartments();
+    this.route.params.subscribe(params => {
+      console.log(params['employeeId']);
+        this.empID = params['employeeId'];
+        this.employee = this.authenticateService.getUser();
+    });
+    console.log(this.employee);
+    this.id = this.employee.id;
 
+  }
 
+  onLogout(){
+    this.authenticateService.logout();
   }
 }
 

@@ -5,21 +5,28 @@ import { Subscription } from 'rxjs';
 import { submitRequestServices } from '../services/request.service';
 import { ConfirmDialogComponent } from '../templates/confirm-dialog.componenet';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
+import { Employee } from '../models/Employee.model';
+
 @Component({
   selector: 'app-review-request',
   templateUrl: './review-request.component.html',
   styleUrls: ['./review-request.component.css']
 })
 export class ReviewRequestComponent implements OnInit {
+  id!:string;
+  empID!:string;
+  employee!:Employee;
   selectedRequest!: Request;
   pendingRequests: Request[] = [];
   commentText: string = '';
-  
+
 
   private requestSub! : Subscription;
 
   constructor(private router: Router, private submitRequestService: submitRequestServices,
-    public dialog:MatDialog, ) { }
+    public dialog:MatDialog, public route: ActivatedRoute,public authenticateService:AdminLoginService) { }
 
   onSelect(request: Request) {
     this.selectedRequest = request;
@@ -31,6 +38,13 @@ export class ReviewRequestComponent implements OnInit {
       .subscribe((request:Request[])=> {
         this.pendingRequests = request.filter(request => request.status === 'pending');
       });
+      this.route.params.subscribe(params => {
+        console.log(params['employeeId']);
+          this.empID = params['employeeId'];
+          this.employee = this.authenticateService.getUser();
+      });
+      console.log(this.employee);
+      this.id = this.employee.id;
   }
 
   approveRequest() {
@@ -60,6 +74,9 @@ export class ReviewRequestComponent implements OnInit {
       }
     })
 
+  }
+  onLogout(){
+    this.authenticateService.logout();
   }
 }
   // approveRequest() {

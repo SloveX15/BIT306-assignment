@@ -13,6 +13,7 @@ import { AdminLoginService } from '../services/login.service';
   styleUrls: ['./daily-schedule.component.css']
 })
 export class DailyScheduleComponent implements OnInit{
+  id!:String;
   empID!:string;
   employee!:Employee;
   showForm! : boolean;
@@ -33,7 +34,7 @@ export class DailyScheduleComponent implements OnInit{
     if (form.invalid){
       return;
     }
-    this.dailyScheduleService.addDSchedule(this.empID, form.value.workHours,form.value.workLocation,
+    this.dailyScheduleService.addDSchedule(this.employee.employeeId, form.value.workHours,form.value.workLocation,
       form.value.workReport,form.value.date,'',false);
     alert("Schedule update successfully!");
     form.reset();
@@ -45,14 +46,16 @@ export class DailyScheduleComponent implements OnInit{
       .subscribe((dSchedules:DailySchedule[])=> {
         this.dailySchedules = dSchedules;
       });
-      this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
+      console.log(params['employeeId']);
         this.empID = params['employeeId'];
         this.employee = this.authenticateService.getUser();
-      })
+    });
+    console.log(this.employee);
+    this.id = this.employee.id;
   }
 
   onDateSelected() {
-    this.empID = this.employee.employeeId;
     const matchingSchedule = this.dailySchedules.find(schedule =>{
       const scheduleDate = new Date(schedule.date);
       scheduleDate.toDateString() === this.selectedDate.toDateString() &&

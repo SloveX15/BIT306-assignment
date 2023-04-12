@@ -7,11 +7,19 @@
       </div>
       <div class="nav right">
         <a href="" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Home Page</span></span></a>
-        <a href="register-employee" class="nav-link"><span class="nav-link-span"><span class="u-nav">Register Employee</span></span></a>
-        
-        <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
-       
-        <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+        <a routerLink="/Admin/{{id}}/register-employee" class="nav-link">
+          <span class="nav-link-span">
+            <span class="u-nav">Register Employee</span>
+          </span>
+        </a>
+
+        <a routerLink="/Supervisor/{{id}}/fwaAnalytics" class="nav-link">
+          <span class="nav-link-span">
+            <span class="u-nav">View FWA Analytics</span>
+          </span>
+        </a>
+
+        <a href="#" class="nav-link" onclick="logout()"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
       </div>
     </nav>
   </header>
@@ -22,40 +30,39 @@
 
   <h1>Employee List</h1>
 
-  
-  
+
+
   <table mat-table [dataSource]="empList" matSort class="employee-table">
     <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Position</th>
       <td mat-cell *matCellDef="let element">{{element.position}}</td>
     </ng-container>
-  
+
     <!-- Name Column -->
     <ng-container matColumnDef="name" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
       <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
-  
+
     <!-- Email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
       <td mat-cell *matCellDef="let element">{{element.email}}</td>
     </ng-container>
-  
+
     <!-- Department Column -->
     <ng-container matColumnDef="department" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header="deptName">Department</th>
       <td mat-cell *matCellDef="let element">{{element.department.deptName}}</td>
     </ng-container>
-  
-  
+
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
-  
-   
-  
 
-   
+
+
+
+

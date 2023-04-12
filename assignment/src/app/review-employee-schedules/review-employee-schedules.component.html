@@ -9,11 +9,18 @@
       <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
     </div>
     <div class="nav right">
-      <a href="review-request" class="nav-link"><span class="nav-link-span"><span class="u-nav">Review FWA Request</span></span></a>
-
-      <a href="fwaAnalytics" class="nav-link"><span class="nav-link-span"><span class="u-nav">View FWA Analytics</span></span></a>
+      <a routerLink="/Supervisor/{{id}}/review-request" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">Schedule List</span>
+        </span>
+      </a>
+      <a routerLink="/Supervisor/{{id}}/fwaAnalytics" class="nav-link">
+        <span class="nav-link-span">
+          <span class="u-nav">View FWA Analytics</span>
+        </span>
+      </a>
       <a href="review" class="nav-link active"><span class="nav-link-span"><span class="u-nav">Review Employee Schedule</span></span></a>
-      <a href="" class="nav-link"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
+      <a href="#" class="nav-link" onclick="logout()"><span class="nav-link-span"><span class="u-nav">Logout</span></span></a>
     </div>
   </nav>
 </header>
@@ -35,7 +42,7 @@
       <p>Working Hours :{{ ds.workHours }}</p>
       <p>Date :{{ ds.date }}</p>
       <p>supervisorComments :{{ds.comment}}</p>
-      <div *ngIf="isEditing && ds.isEditMode">
+      <div *ngIf="!isEditing && ds.isEditMode">
         <mat-form-field>
           <textarea matInput name="supervisorComments" placeholder="Enter supervisor comments" [(ngModel)]="ds.comment"></textarea>
         </mat-form-field>

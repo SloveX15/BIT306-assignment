@@ -6,6 +6,8 @@ import { submitRequestServices } from '../services/request.service';
 import { registerEmployeeServices } from '../services/register-employee.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from "@angular/router";
+import { AdminLoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-submit-request',
@@ -13,6 +15,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./submit-request.component.css']
 })
 export class SubmitRequestComponent implements OnInit {
+  id!:String;
+  empID!:String;
   Requests: Request [] = [];
   employee!:Employee;
   employeeID! :string;
@@ -31,18 +35,25 @@ export class SubmitRequestComponent implements OnInit {
   constructor(
     private router: Router,
     public submitRequestService: submitRequestServices,
-    public employeeService: registerEmployeeServices
+    public employeeService: registerEmployeeServices,
+    public authenticateService: AdminLoginService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit(): void
   {
-    this.employee = this.employeeService.currentEmployee();
-    this.employeeID = this.employee.employeeId;
+    this.route.params.subscribe(params => {
+      console.log(params['employeeId']);
+        this.empID = params['employeeId'];
+        this.employee = this.authenticateService.getUser();
+    });
+    console.log("Submit request",this.employee);
     this.submitRequestService.getRequests();
     this.requestSub = this.submitRequestService.getDRequestUpdateListener()
       .subscribe((request:Request[])=> {
         this.Requests = request;
       });
+    this.id = this.employee.id;
   }
 
 
@@ -73,5 +84,9 @@ export class SubmitRequestComponent implements OnInit {
     alert("Request have been submitted")
     // navigate to requests page
     //this.router.navigate(['/review-request']);
+  }
+
+  onLogout(){
+    this.authenticateService.logout();
   }
 }

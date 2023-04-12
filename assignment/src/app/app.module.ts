@@ -34,15 +34,15 @@ import { RequestHistoryComponent } from './request-history/request-history.compo
 import { AuthInterceptor } from './login/auth-interceptor';
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'register-employee', component: RegisterEmployeeComponent },
-  { path: 'submit-request', component: SubmitRequestComponent },
-  { path: 'review-request', component: ReviewRequestComponent },
-  { path: 'admin-homepage', component: AdminHomepageComponent},
-  { path: 'update', component: DailyScheduleComponent},
-  { path: 'review', component: ReviewEmployeeSchedulesComponent},
-  { path: 'fwaAnalytics', component: ViewFWAAnalyticsComponent},
-  { path: 'ownSchedule', component: OwnScheduleComponent},
-  { path: 'requestHistory', component: RequestHistoryComponent},
+  { path: 'Admin/:userid/register-employee', component: RegisterEmployeeComponent },
+  { path: 'Employee/:userid/submit-request', component: SubmitRequestComponent },
+  { path: 'Supervisor/:userid/review-request', component: ReviewRequestComponent },
+  { path: 'Supervisor/:userid/request-history', component: RequestHistoryComponent },
+  { path: 'Admin/:userid/admin-homepage', component: AdminHomepageComponent},
+  { path: 'Employee/:userid/update', component: DailyScheduleComponent},
+  { path: 'Supervisor/:userid/review', component: ReviewEmployeeSchedulesComponent},
+  { path: 'Supervisor/:userid/fwaAnalytics', component: ViewFWAAnalyticsComponent},
+  { path: 'Employee/:userid/ownSchedule', component: OwnScheduleComponent},
 ]
 
 @NgModule({
