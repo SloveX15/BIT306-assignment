@@ -22,6 +22,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
   private requestSub! : Subscription;
   private employeeSub!: Subscription;
   private departmentSub!: Subscription;
+
   id!:string;
   employeePosition!:string;
   empID!:string;
@@ -85,6 +86,7 @@ export class ViewFWAAnalyticsComponent implements OnInit{
       }
       return false; // Exclude this schedule from the filteredScheduleData array
     });
+    
     if (this.startDate && this.endDate) {
       const start = new Date(this.startDate);
       const end = new Date(this.endDate);

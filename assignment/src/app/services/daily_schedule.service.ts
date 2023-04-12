@@ -56,7 +56,8 @@ export class DailyScheduleServices{
 
 
   addDSchedule(employeeID:string,workHours: string, workLocation: string,workReport:string,date:Date,comment:string,isEditMode:boolean){
-    const dSchedule: DailySchedule = {id:'null',employeeId:employeeID,workHours: workHours,workLocation: workLocation,workReport:workReport,date:date,comment:comment,isEditMode:isEditMode};
+    const dSchedule: DailySchedule = {id:'null',employeeId:employeeID,workHours: workHours,workLocation: workLocation,workReport:workReport
+    ,date:date,comment:comment,isEditMode:isEditMode};
     this.http.post<{message:string,dScheduleId: string}>('http://localhost:3001/api/dailySchedules',dSchedule)
       .subscribe((responseData)=>{
         // console.log(responseData.message);
@@ -79,7 +80,8 @@ export class DailyScheduleServices{
   // }
 
   updateDSchedule(id:string, employeeId: string, workHours: string, workLocation: string, workReport: string, date: Date, comment: string,isEditMode:boolean){
-    const d : DailySchedule = { id:id, employeeId: employeeId, workHours:workHours,workLocation:workLocation,workReport:workReport,date:date,comment:comment,isEditMode:isEditMode};
+    const d : DailySchedule = { id:id, employeeId: employeeId, workHours:workHours,workLocation:workLocation,workReport:workReport,date:date
+      ,comment:comment,isEditMode:isEditMode};
     this.http.put('http://localhost:3001/api/dailySchedules/' + id , d)
     .subscribe(response => console.log (response));
   }
